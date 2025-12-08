@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_common_included_features",
+  "info": {
+    "displayName": "included-feature",
+    "description": ""
+  },
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "icon": {
+      "type": "string"
+    }
+  }
+}

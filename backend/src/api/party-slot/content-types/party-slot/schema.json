@@ -1,0 +1,36 @@
+{
+  "collectionName": "party_slots",
+  "info": {
+    "singularName": "party-slot",
+    "pluralName": "party-slots",
+    "displayName": "Party Slot"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "date": {
+      "type": "date",
+      "required": true
+    },
+    "startTime": {
+      "type": "time",
+      "required": true
+    },
+    "endTime": {
+      "type": "time",
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["available", "limited", "booked"],
+      "required": true
+    },
+    "maxParties": {
+      "type": "integer"
+    },
+    "bookedParties": {
+      "type": "integer"
+    }
+  }
+}

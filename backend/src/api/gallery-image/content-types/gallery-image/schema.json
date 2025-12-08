@@ -1,0 +1,25 @@
+{
+  "collectionName": "gallery_images",
+  "info": {
+    "singularName": "gallery-image",
+    "pluralName": "gallery-images",
+    "displayName": "Gallery Image"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": ["playground", "party-room", "food", "amenities"]
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}
