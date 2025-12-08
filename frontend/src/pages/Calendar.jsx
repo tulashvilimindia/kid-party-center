@@ -45,7 +45,17 @@ const Calendar = () => {
     const grouped = {};
 
     slotsToGroup.forEach(slot => {
-      const date = new Date(slot.startTime).toLocaleDateString('en-US', {
+      if (!slot.startTime) return;
+
+      const slotDate = new Date(slot.startTime);
+
+      // Check if date is valid
+      if (isNaN(slotDate.getTime())) {
+        console.error('Invalid date:', slot.startTime);
+        return;
+      }
+
+      const date = slotDate.toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
@@ -67,7 +77,16 @@ const Calendar = () => {
   };
 
   const formatTime = (dateString) => {
-    return new Date(dateString).toLocaleTimeString('en-US', {
+    if (!dateString) return 'N/A';
+
+    const date = new Date(dateString);
+
+    // Check if date is valid
+    if (isNaN(date.getTime())) {
+      return 'Invalid Time';
+    }
+
+    return date.toLocaleTimeString('en-US', {
       hour: '2-digit',
       minute: '2-digit',
       hour12: true
@@ -75,7 +94,16 @@ const Calendar = () => {
   };
 
   const getDayOfWeek = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', { weekday: 'long' });
+    if (!dateString) return '';
+
+    const date = new Date(dateString);
+
+    // Check if date is valid
+    if (isNaN(date.getTime())) {
+      return '';
+    }
+
+    return date.toLocaleDateString('en-US', { weekday: 'long' });
   };
 
   const filteredSlots = getFilteredSlots();
