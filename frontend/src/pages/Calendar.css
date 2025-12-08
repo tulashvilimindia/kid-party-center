@@ -108,6 +108,16 @@
   box-shadow: 0 0 20px rgba(255, 214, 10, 0.2);
 }
 
+.slot-card.limited {
+  border-color: var(--yellow);
+  background: rgba(255, 149, 0, 0.1);
+  box-shadow: 0 0 20px rgba(255, 149, 0, 0.2);
+}
+
+.slot-card.limited:hover {
+  box-shadow: 0 0 30px rgba(255, 149, 0, 0.4);
+}
+
 /* Slot Time */
 .slot-time {
   display: flex;
@@ -188,6 +198,13 @@
   color: #e65100;
 }
 
+.status-badge.limited {
+  background: rgba(255, 149, 0, 0.2);
+  color: var(--primary-orange);
+  font-weight: 900;
+  animation: pulse 2s infinite;
+}
+
 /* No Slots */
 .no-slots {
   text-align: center;
@@ -202,12 +219,14 @@
 
 .no-slots h3 {
   font-size: 1.75rem;
-  color: var(--text-dark);
+  color: var(--white);
   margin-bottom: var(--spacing-md);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .no-slots p {
-  color: var(--text-muted);
+  color: var(--light-gray);
   font-size: 1.125rem;
   margin-bottom: var(--spacing-xl);
   max-width: 500px;
@@ -218,7 +237,7 @@
 /* Calendar Info Section */
 .calendar-info {
   padding: var(--spacing-3xl) 0;
-  background: var(--white);
+  background: var(--bg-darker);
 }
 
 .info-grid {
@@ -230,31 +249,35 @@
 .info-card {
   text-align: center;
   padding: var(--spacing-xl);
-  border: 2px solid var(--border-color);
-  border-radius: var(--border-radius-lg);
-  transition: all 0.3s ease;
+  border: 3px solid rgba(255, 149, 0, 0.2);
+  border-radius: var(--radius-xl);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: var(--bg-card);
 }
 
 .info-card:hover {
   border-color: var(--primary-orange);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-5px);
+  box-shadow: var(--shadow-glow-orange);
+  transform: translateY(-10px) scale(1.02);
 }
 
 .info-icon {
-  font-size: 3rem;
+  font-size: 4rem;
   margin-bottom: var(--spacing-md);
+  filter: drop-shadow(0 0 10px rgba(255, 149, 0, 0.5));
 }
 
 .info-card h4 {
-  font-size: 1.25rem;
-  color: var(--text-dark);
+  font-size: 1.5rem;
+  color: var(--white);
   margin-bottom: var(--spacing-sm);
-  font-weight: 700;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .info-card p {
-  color: var(--text-muted);
+  color: var(--light-gray);
   margin-bottom: var(--spacing-lg);
   line-height: 1.6;
 }

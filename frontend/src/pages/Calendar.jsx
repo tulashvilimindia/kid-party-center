@@ -1,21 +1,46 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { getPartySlots } from '../services/api';
 import './Calendar.css';
 
 const Calendar = () => {
+  console.log('🎯 Calendar component rendering');
+
   const [slots, setSlots] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('available');
+  const hasFetched = useRef(false);
 
   useEffect(() => {
     const fetchSlots = async () => {
+      // Prevent duplicate fetches in StrictMode
+      if (hasFetched.current) return;
+      hasFetched.current = true;
       try {
         const response = await getPartySlots();
-        const publishedSlots = response.data?.filter(slot => slot.publishedAt) || [];
+
+        // Strapi v5 returns data directly in response.data array
+        let slotsData = response.data || [];
+
+        console.log('=== RAW API RESPONSE ===');
+        console.log('Full response:', response);
+        console.log('Slots data:', slotsData);
+        console.log('Number of slots:', slotsData.length);
+        if (slotsData.length > 0) {
+          console.log('First slot sample:', slotsData[0]);
+        }
+
+        // Filter for published slots
+        const publishedSlots = slotsData.filter(slot => slot.publishedAt) || [];
+
+        console.log('Published slots:', publishedSlots);
+        console.log('Number of published slots:', publishedSlots.length);
+
         setSlots(publishedSlots);
       } catch (error) {
         console.error('Error fetching slots:', error);
+        // Set empty array on error
+        setSlots([]);
       } finally {
         setLoading(false);
       }
@@ -27,79 +52,164 @@ const Calendar = () => {
   const getFilteredSlots = () => {
     const now = new Date();
 
-    return slots.filter(slot => {
-      const slotDate = new Date(slot.startTime);
+    console.log('=== FILTERING SLOTS ===');
+    console.log('Current filter:', filter);
+    console.log('Total slots to filter:', slots.length);
+    console.log('Current time:', now);
+
+    const filtered = slots.filter(slot => {
+      console.log('\n--- Filtering slot ---');
+      console.log('Slot:', slot);
+
+      // Handle both formats: combined datetime or separate date/time fields
+      let slotDate;
+
+      if (slot.date && slot.startTime) {
+        // Combine date and startTime fields
+        const combinedDateTime = `${slot.date}T${slot.startTime}`;
+        console.log('Combined datetime string:', combinedDateTime);
+        slotDate = new Date(combinedDateTime);
+        console.log('Parsed slotDate:', slotDate);
+      } else if (slot.startTime) {
+        // Try parsing startTime directly
+        slotDate = new Date(slot.startTime);
+        console.log('Parsed startTime directly:', slotDate);
+      } else {
+        console.log('❌ No date/startTime found');
+        return false;
+      }
 
       // Filter out past slots
-      if (slotDate < now) return false;
+      if (isNaN(slotDate.getTime())) {
+        console.log('❌ Invalid date');
+        return false;
+      }
+
+      if (slotDate < now) {
+        console.log('❌ Past slot');
+        return false;
+      }
+
+      console.log('✅ Slot is in future');
 
       // Apply status filter
-      if (filter === 'available') return slot.status === 'available';
-      if (filter === 'booked') return slot.status === 'booked';
+      if (filter === 'available') {
+        const passes = slot.status === 'available' || slot.status === 'limited';
+        console.log(`Filter check (available): ${passes} (status: ${slot.status})`);
+        return passes;
+      }
+      if (filter === 'booked') {
+        const passes = slot.status === 'booked';
+        console.log(`Filter check (booked): ${passes} (status: ${slot.status})`);
+        return passes;
+      }
 
+      console.log('✅ Passes all filters (showing all)');
       return true;
     });
+
+    console.log('\n=== FILTERED RESULT ===');
+    console.log('Filtered slots count:', filtered.length);
+    console.log('Filtered slots:', filtered);
+
+    return filtered;
   };
 
   const groupSlotsByDate = (slotsToGroup) => {
     const grouped = {};
 
-    slotsToGroup.forEach(slot => {
-      if (!slot.startTime) return;
+    console.log('=== GROUPING SLOTS ===');
+    console.log('Number of slots to group:', slotsToGroup.length);
 
-      const slotDate = new Date(slot.startTime);
+    slotsToGroup.forEach((slot, index) => {
+      console.log(`\n--- Processing slot ${index + 1} ---`);
+      console.log('Slot data:', slot);
+      console.log('slot.date value:', slot.date);
+      console.log('slot.date type:', typeof slot.date);
 
-      // Check if date is valid
-      if (isNaN(slotDate.getTime())) {
-        console.error('Invalid date:', slot.startTime);
+      // Get the date for grouping
+      if (!slot.date) {
+        console.error('❌ No date found for slot:', slot);
         return;
       }
 
-      const date = slotDate.toLocaleDateString('en-US', {
+      // Parse date with explicit time to avoid timezone issues
+      // Format is "2025-12-16", add time component
+      const dateStr = slot.date + 'T00:00:00';
+      console.log('Date string for parsing:', dateStr);
+
+      const dateObj = new Date(dateStr);
+      console.log('Date object created:', dateObj);
+      console.log('Date object time:', dateObj.getTime());
+
+      if (isNaN(dateObj.getTime())) {
+        console.error('❌ Invalid date object for:', slot.date);
+        return;
+      }
+
+      const displayDate = dateObj.toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
       });
 
-      if (!grouped[date]) {
-        grouped[date] = [];
+      console.log('✅ Display date:', displayDate);
+
+      if (!grouped[displayDate]) {
+        grouped[displayDate] = [];
       }
 
-      grouped[date].push(slot);
+      grouped[displayDate].push(slot);
     });
 
-    // Sort slots within each date
+    console.log('\n=== FINAL GROUPED RESULT ===');
+    console.log('Grouped slots:', grouped);
+
+    // Sort slots within each date by startTime
     Object.keys(grouped).forEach(date => {
-      grouped[date].sort((a, b) => new Date(a.startTime) - new Date(b.startTime));
+      grouped[date].sort((a, b) => {
+        const timeA = a.startTime || '00:00';
+        const timeB = b.startTime || '00:00';
+        return timeA.localeCompare(timeB);
+      });
     });
 
     return grouped;
   };
 
-  const formatTime = (dateString) => {
-    if (!dateString) return 'N/A';
+  const formatTime = (timeString) => {
+    if (!timeString) return 'N/A';
 
-    const date = new Date(dateString);
-
-    // Check if date is valid
-    if (isNaN(date.getTime())) {
-      return 'Invalid Time';
+    // If it's just a time string (HH:MM:SS or HH:MM), format it directly
+    if (typeof timeString === 'string' && timeString.match(/^\d{2}:\d{2}/)) {
+      const [hours, minutes] = timeString.split(':');
+      const hour = parseInt(hours);
+      const period = hour >= 12 ? 'PM' : 'AM';
+      const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+      return `${displayHour.toString().padStart(2, '0')}:${minutes} ${period}`;
     }
 
-    return date.toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: true
-    });
+    // Try parsing as a full datetime
+    const date = new Date(timeString);
+    if (!isNaN(date.getTime())) {
+      return date.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+      });
+    }
+
+    return 'Invalid Time';
   };
 
-  const getDayOfWeek = (dateString) => {
-    if (!dateString) return '';
+  const getDayOfWeek = (slot) => {
+    if (!slot || !slot.date) return '';
 
-    const date = new Date(dateString);
+    // Parse the date string (format: "2025-12-16")
+    const date = new Date(slot.date + 'T00:00:00');
 
-    // Check if date is valid
     if (isNaN(date.getTime())) {
+      console.error('Invalid date for day of week:', slot.date);
       return '';
     }
 
@@ -111,12 +221,16 @@ const Calendar = () => {
   const sortedDates = Object.keys(groupedSlots).sort((a, b) => new Date(a) - new Date(b));
 
   if (loading) {
+    console.log('🔄 LOADING STATE - Component is loading');
     return (
       <div className="loading">
         <div className="spinner"></div>
+        <p style={{color: 'white', marginTop: '20px'}}>Loading calendar data...</p>
       </div>
     );
   }
+
+  console.log('✅ RENDER - About to render calendar with', filteredSlots.length, 'slots');
 
   return (
     <div className="calendar-page">
@@ -178,7 +292,7 @@ const Calendar = () => {
                 <div key={date} className="date-group">
                   <div className="date-header">
                     <h3>{date}</h3>
-                    <span className="day-of-week">{getDayOfWeek(groupedSlots[date][0].startTime)}</span>
+                    <span className="day-of-week">{getDayOfWeek(groupedSlots[date][0])}</span>
                   </div>
                   <div className="slots-list">
                     {groupedSlots[date].map((slot) => (
@@ -213,7 +327,14 @@ const Calendar = () => {
                               </Link>
                             </>
                           ) : slot.status === 'booked' ? (
-                            <span className="status-badge booked">Booked</span>
+                            <span className="status-badge booked">Fully Booked</span>
+                          ) : slot.status === 'limited' ? (
+                            <>
+                              <span className="status-badge limited">Limited Spots</span>
+                              <Link to="/contact" className="btn btn-secondary btn-sm">
+                                Book Now
+                              </Link>
+                            </>
                           ) : (
                             <span className="status-badge pending">Pending</span>
                           )}
