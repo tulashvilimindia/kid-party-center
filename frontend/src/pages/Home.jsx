@@ -48,10 +48,10 @@ const Home = () => {
         <div className="container">
           <div className="hero-content">
             <h1 className="hero-title">
-              {settings?.heroTitle || t('home:hero.title')}
+              {settings?.heroTitle}
             </h1>
             <p className="hero-subtitle">
-              {settings?.heroSubtitle || t('home:hero.subtitle')}
+              {settings?.heroSubtitle}
             </p>
             <div className="hero-buttons">
               <Link to="/packages" className="btn btn-primary btn-lg">
@@ -77,23 +77,23 @@ const Home = () => {
           <div className="features-grid">
             <div className="feature-card">
               <div className="feature-icon">🎪</div>
-              <h3>{t('home:features.venue.title')}</h3>
-              <p>{t('home:features.venue.description')}</p>
+              <h3>{settings?.featureVenueTitle || t('home:features.venue.title')}</h3>
+              <p>{settings?.featureVenueDescription || t('home:features.venue.description')}</p>
             </div>
             <div className="feature-card">
               <div className="feature-icon">🎨</div>
-              <h3>{t('home:features.activities.title')}</h3>
-              <p>{t('home:features.activities.description')}</p>
+              <h3>{settings?.featureActivitiesTitle || t('home:features.activities.title')}</h3>
+              <p>{settings?.featureActivitiesDescription || t('home:features.activities.description')}</p>
             </div>
             <div className="feature-card">
               <div className="feature-icon">🍕</div>
-              <h3>{t('home:features.food.title')}</h3>
-              <p>{t('home:features.food.description')}</p>
+              <h3>{settings?.featureFoodTitle || t('home:features.food.title')}</h3>
+              <p>{settings?.featureFoodDescription || t('home:features.food.description')}</p>
             </div>
             <div className="feature-card">
               <div className="feature-icon">👨‍👩‍👧‍👦</div>
-              <h3>{t('home:features.stressFree.title')}</h3>
-              <p>{t('home:features.stressFree.description')}</p>
+              <h3>{settings?.featureStressFreeTitle || t('home:features.stressFree.title')}</h3>
+              <p>{settings?.featureStressFreeDescription || t('home:features.stressFree.description')}</p>
             </div>
           </div>
         </div>
@@ -103,8 +103,8 @@ const Home = () => {
       <section className="featured-packages">
         <div className="container">
           <div className="section-header text-center">
-            <h2 className="text-gradient">{t('home:packages.title')}</h2>
-            <p>{t('home:packages.subtitle')}</p>
+            <h2 className="text-gradient">{settings?.packagesTitle || t('home:packages.title')}</h2>
+            <p>{settings?.packagesSubtitle || t('home:packages.subtitle')}</p>
           </div>
 
           <div className="packages-grid">
@@ -146,8 +146,8 @@ const Home = () => {
       <section className="cta-section">
         <div className="container">
           <div className="cta-content">
-            <h2>{t('home:cta.title')}</h2>
-            <p>{t('home:cta.subtitle')}</p>
+            <h2>{settings?.ctaTitle || t('home:cta.title')}</h2>
+            <p>{settings?.ctaSubtitle || t('home:cta.subtitle')}</p>
             <div className="cta-buttons">
               <Link to="/contact" className="btn btn-primary btn-lg">
                 {t('home:cta.bookButton')}

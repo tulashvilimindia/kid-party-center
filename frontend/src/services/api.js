@@ -127,4 +127,28 @@ export const submitContactForm = async (formData) => {
   }
 };
 
+// Navigation Menu API
+export const getNavigationMenu = async () => {
+  try {
+    const locale = getLocale();
+    const response = await api.get(`/navigation-menus?populate=*&locale=${locale}&filters[isActive][$eq]=true&sort=order:asc`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching navigation menu:', error);
+    throw error;
+  }
+};
+
+// Social Links API
+export const getSocialLinks = async () => {
+  try {
+    const locale = getLocale();
+    const response = await api.get(`/social-links?populate=*&locale=${locale}&filters[isActive][$eq]=true&sort=order:asc`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching social links:', error);
+    throw error;
+  }
+};
+
 export default api;
