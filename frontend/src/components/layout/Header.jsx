@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
 import './Header.css';
 
 const Header = () => {
@@ -54,6 +55,9 @@ const Header = () => {
               </Link>
             ))}
           </nav>
+
+          {/* Language Switcher */}
+          <LanguageSwitcher />
 
           {/* Book Now Button */}
           <Link to="/contact" className="btn btn-primary btn-book">
