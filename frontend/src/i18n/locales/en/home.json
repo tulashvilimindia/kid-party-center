@@ -1,7 +1,8 @@
 {
   "hero": {
     "title": "Unforgettable Kids Parties in Batumi!",
-    "subtitle": "Fun, safe, magical experiences for children."
+    "subtitle": "Fun, safe, magical experiences for children.",
+    "viewPackages": "View Packages"
   },
   "features": {
     "venue": {
@@ -24,10 +25,16 @@
   "packages": {
     "title": "Our Party Packages",
     "subtitle": "Choose the perfect package for your child's special day",
-    "popular": "Popular"
+    "popular": "Popular",
+    "min": "min",
+    "guests": "guests",
+    "perChild": "per child",
+    "viewAll": "View All Packages"
   },
   "cta": {
     "title": "Ready to Create Magical Memories?",
-    "subtitle": "Book your party today and give your child an unforgettable celebration!"
+    "subtitle": "Book your party today and give your child an unforgettable celebration!",
+    "bookButton": "Book Your Party",
+    "checkAvailability": "Check Availability"
   }
 }
