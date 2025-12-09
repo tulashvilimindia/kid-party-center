@@ -11,7 +11,7 @@ echo   - 3 Social Links
 echo.
 pause
 echo.
-node scripts/auto-populate.js
+node scripts/auto-populate.mjs
 echo.
 echo ========================================================
 echo   DONE!

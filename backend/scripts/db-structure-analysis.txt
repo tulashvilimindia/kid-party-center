@@ -1,0 +1,200 @@
+═══════════════════════════════════════════════════════
+DATABASE STRUCTURE ANALYSIS
+Generated: 2025-12-09T10:59:41.025Z
+═══════════════════════════════════════════════════════
+
+
+============================================================
+All Tables
+============================================================
+
+name                                           | type 
+-----------------------------------------------+------
+admin_permissions                              | table
+admin_permissions_role_lnk                     | table
+admin_roles                                    | table
+admin_users                                    | table
+admin_users_roles_lnk                          | table
+components_common_included_features            | table
+files                                          | table
+files_folder_lnk                               | table
+files_related_mph                              | table
+gallery_images                                 | table
+i18n_locale                                    | table
+menu_items                                     | table
+navigation_menus                               | table
+packages                                       | table
+packages_cmps                                  | table
+party_slots                                    | table
+site_settings                                  | table
+social_links                                   | table
+sqlite_sequence                                | table
+strapi_ai_localization_jobs                    | table
+strapi_api_token_permissions                   | table
+strapi_api_token_permissions_token_lnk         | table
+strapi_api_tokens                              | table
+strapi_core_store_settings                     | table
+strapi_database_schema                         | table
+strapi_history_versions                        | table
+strapi_migrations                              | table
+strapi_migrations_internal                     | table
+strapi_release_actions                         | table
+strapi_release_actions_release_lnk             | table
+strapi_releases                                | table
+strapi_sessions                                | table
+strapi_transfer_token_permissions              | table
+strapi_transfer_token_permissions_token_lnk    | table
+strapi_transfer_tokens                         | table
+strapi_webhooks                                | table
+strapi_workflows                               | table
+strapi_workflows_stage_required_to_publish_lnk | table
+strapi_workflows_stages                        | table
+strapi_workflows_stages_permissions_lnk        | table
+strapi_workflows_stages_workflow_lnk           | table
+up_permissions                                 | table
+up_permissions_role_lnk                        | table
+up_roles                                       | table
+up_users                                       | table
+up_users_role_lnk                              | table
+upload_folders                                 | table
+upload_folders_parent_lnk                      | table
+
+
+============================================================
+Site Settings Structure
+============================================================
+
+column_name                     | data_type    | is_required | default_value
+--------------------------------+--------------+-------------+--------------
+id                              | INTEGER      | 1           |              
+document_id                     | varchar(255) |             |              
+hero_title                      | varchar(255) |             |              
+hero_subtitle                   | varchar(255) |             |              
+intro_text                      | TEXT         |             |              
+phone                           | varchar(255) |             |              
+email                           | varchar(255) |             |              
+address                         | varchar(255) |             |              
+facebook_url                    | varchar(255) |             |              
+instagram_url                   | varchar(255) |             |              
+created_at                      | datetime     |             |              
+updated_at                      | datetime     |             |              
+published_at                    | datetime     |             |              
+created_by_id                   | INTEGER      |             |              
+updated_by_id                   | INTEGER      |             |              
+locale                          | varchar(255) |             |              
+feature_venue_title             | varchar(255) |             |              
+feature_venue_description       | TEXT         |             |              
+feature_activities_title        | varchar(255) |             |              
+feature_activities_description  | TEXT         |             |              
+feature_food_title              | varchar(255) |             |              
+feature_food_description        | TEXT         |             |              
+feature_stress_free_title       | varchar(255) |             |              
+feature_stress_free_description | TEXT         |             |              
+packages_title                  | varchar(255) |             |              
+packages_subtitle               | TEXT         |             |              
+cta_title                       | varchar(255) |             |              
+cta_subtitle                    | TEXT         |             |              
+footer_about_title              | varchar(255) |             |              
+footer_about_text               | TEXT         |             |              
+footer_tagline                  | varchar(255) |             |              
+
+
+============================================================
+Navigation Menus Structure
+============================================================
+
+column_name   | data_type    | is_required
+--------------+--------------+------------
+id            | INTEGER      | 1          
+document_id   | varchar(255) |            
+label         | varchar(255) |            
+path          | varchar(255) |            
+icon          | varchar(255) |            
+order         | INTEGER      |            
+is_active     | boolean      |            
+created_at    | datetime     |            
+updated_at    | datetime     |            
+published_at  | datetime     |            
+created_by_id | INTEGER      |            
+updated_by_id | INTEGER      |            
+locale        | varchar(255) |            
+
+
+============================================================
+Social Links Structure
+============================================================
+
+column_name   | data_type    | is_required
+--------------+--------------+------------
+id            | INTEGER      | 1          
+document_id   | varchar(255) |            
+platform      | varchar(255) |            
+url           | varchar(255) |            
+icon          | varchar(255) |            
+order         | INTEGER      |            
+is_active     | boolean      |            
+created_at    | datetime     |            
+updated_at    | datetime     |            
+published_at  | datetime     |            
+created_by_id | INTEGER      |            
+updated_by_id | INTEGER      |            
+locale        | varchar(255) |            
+
+
+============================================================
+Site Settings Data (if any)
+============================================================
+
+(No data)
+
+============================================================
+Navigation Menus Data (if any)
+============================================================
+
+(No data)
+
+============================================================
+Social Links Data (if any)
+============================================================
+
+(No data)
+
+============================================================
+Localization Tables
+============================================================
+
+(No data)
+
+============================================================
+Site Settings Localization Links
+============================================================
+
+Error: no such table: site_settings_localizations_lnk
+
+
+============================================================
+Navigation Menus Localization Links
+============================================================
+
+Error: no such table: navigation_menus_localizations_lnk
+
+
+============================================================
+Max IDs (for safe inserts)
+============================================================
+
+table_name       | max_id
+-----------------+-------
+site_settings    |       
+navigation_menus |       
+social_links     |       
+
+
+============================================================
+Database File Size
+============================================================
+
+size_bytes
+----------
+1204224   
+
