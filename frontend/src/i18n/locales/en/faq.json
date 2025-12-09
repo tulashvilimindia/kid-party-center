@@ -1,0 +1,71 @@
+{
+  "title": "Frequently Asked Questions",
+  "subtitle": "Find answers to common questions about our services",
+  "questions": {
+    "booking": {
+      "title": "Booking & Reservations",
+      "q1": {
+        "question": "How far in advance should I book?",
+        "answer": "We recommend booking at least 2-3 weeks in advance, especially for weekends and holidays. However, we'll do our best to accommodate last-minute bookings when possible."
+      },
+      "q2": {
+        "question": "Can I change or cancel my booking?",
+        "answer": "Yes, you can modify your booking up to 7 days before the party date. Cancellations made within 7 days may be subject to a cancellation fee."
+      },
+      "q3": {
+        "question": "What deposit is required?",
+        "answer": "We require a 30% deposit to secure your booking, with the remaining balance due on the day of the party."
+      }
+    },
+    "party": {
+      "title": "Party Details",
+      "q1": {
+        "question": "What's included in the party packages?",
+        "answer": "Each package includes venue rental, decorations, entertainment, and basic setup. Food and additional services can be added separately."
+      },
+      "q2": {
+        "question": "Can I bring my own food?",
+        "answer": "Yes, you can bring your own food, or choose from our catering menu. We also accommodate special dietary requirements."
+      },
+      "q3": {
+        "question": "How many children can attend?",
+        "answer": "This depends on the package you choose. Our packages range from 10 to 50+ children. Contact us for custom arrangements for larger groups."
+      }
+    },
+    "venue": {
+      "title": "Venue & Facilities",
+      "q1": {
+        "question": "Is the venue safe for children?",
+        "answer": "Absolutely! Our venue is specifically designed with children's safety in mind, with soft play areas, supervised activities, and child-friendly facilities."
+      },
+      "q2": {
+        "question": "Do you have parking available?",
+        "answer": "Yes, we have free parking available for guests."
+      },
+      "q3": {
+        "question": "Is the venue accessible?",
+        "answer": "Yes, our venue is fully accessible with wheelchair ramps and accessible facilities."
+      }
+    },
+    "other": {
+      "title": "Other Questions",
+      "q1": {
+        "question": "Can parents stay during the party?",
+        "answer": "Yes, parents are welcome to stay. We have a comfortable seating area where you can relax while we entertain the children."
+      },
+      "q2": {
+        "question": "Do you provide entertainment?",
+        "answer": "Yes, all our packages include professional entertainers. Additional entertainment options can be added to your package."
+      },
+      "q3": {
+        "question": "What if my child has special needs?",
+        "answer": "We're happy to accommodate children with special needs. Please let us know in advance so we can make appropriate arrangements."
+      }
+    }
+  },
+  "contact": {
+    "title": "Still have questions?",
+    "description": "Contact us and we'll be happy to help!",
+    "button": "Contact Us"
+  }
+}

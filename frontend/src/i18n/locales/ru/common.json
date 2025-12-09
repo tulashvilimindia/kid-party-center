@@ -1,0 +1,57 @@
+{
+  "nav": {
+    "home": "Главная",
+    "packages": "Пакеты",
+    "calculator": "Калькулятор",
+    "calendar": "Календарь",
+    "gallery": "Галерея",
+    "about": "О нас",
+    "contact": "Контакты",
+    "faq": "Вопросы"
+  },
+  "buttons": {
+    "bookNow": "Забронировать!",
+    "bookYourParty": "Забронируй вечеринку!",
+    "viewDetails": "Подробнее",
+    "viewAllPackages": "Все пакеты",
+    "checkAvailability": "Проверить доступность",
+    "sendMessage": "Отправить",
+    "calculate": "Рассчитать",
+    "learnMore": "Узнать больше",
+    "readMore": "Читать далее"
+  },
+  "footer": {
+    "brand": "KidParty",
+    "tagline": "Незабываемые детские праздники в Батуми!",
+    "quickLinks": "Быстрые ссылки",
+    "information": "Информация",
+    "contactUs": "Свяжитесь с нами",
+    "allRightsReserved": "Все права защищены",
+    "makingKidsHappy": "Делаем детей счастливыми!",
+    "madeWith": "Сделано с",
+    "and": "и",
+    "inBatumi": "в Батуми, Грузия",
+    "aboutUs": "О нас",
+    "privacyPolicy": "Конфиденциальность",
+    "termsConditions": "Условия использования"
+  },
+  "contact": {
+    "location": "Батуми, Грузия",
+    "phone": "+995 577 123 456",
+    "email": "info@kidparty.ge"
+  },
+  "categories": {
+    "food": "Еда",
+    "drinks": "Напитки",
+    "dessert": "Десерт",
+    "extras": "Дополнительно"
+  },
+  "common": {
+    "loading": "Загрузка...",
+    "error": "Что-то пошло не так. Попробуйте снова.",
+    "perChild": "за ребенка",
+    "guests": "гостей",
+    "minutes": "минут",
+    "min": "мин"
+  }
+}

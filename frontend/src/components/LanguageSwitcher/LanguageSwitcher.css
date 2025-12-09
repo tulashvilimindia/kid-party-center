@@ -1,0 +1,133 @@
+/* ===================================
+   LANGUAGE SWITCHER STYLES
+   =================================== */
+
+.language-switcher {
+  position: relative;
+  z-index: 100;
+}
+
+.language-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background: var(--bg-card);
+  border: 2px solid rgba(255, 149, 0, 0.3);
+  border-radius: var(--radius-lg);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s var(--bounce-timing);
+}
+
+.language-btn:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--primary-orange);
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(255, 149, 0, 0.4);
+}
+
+.language-btn .flag {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.language-btn .lang-code {
+  font-family: var(--font-heading);
+  letter-spacing: 1px;
+}
+
+.language-btn .arrow {
+  font-size: 0.75rem;
+  transition: transform 0.3s ease;
+}
+
+.language-btn .arrow.open {
+  transform: rotate(180deg);
+}
+
+/* Dropdown */
+.language-dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 160px;
+  background: var(--bg-card);
+  border: 2px solid rgba(255, 149, 0, 0.3);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 0.5rem;
+  animation: slideDown 0.3s var(--bounce-timing);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.language-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.language-option:hover {
+  background: var(--bg-card-hover);
+  transform: translateX(5px);
+}
+
+.language-option.active {
+  background: var(--gradient-primary);
+  color: var(--white);
+}
+
+.language-option .flag {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.language-option .lang-name {
+  flex: 1;
+}
+
+.language-option .checkmark {
+  font-size: 1.25rem;
+  color: var(--white);
+  font-weight: 900;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .language-btn {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .language-btn .lang-code {
+    display: none;
+  }
+
+  .language-dropdown {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

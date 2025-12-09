@@ -1,0 +1,24 @@
+{
+  "title": "Our Party Packages",
+  "subtitle": "Choose the perfect package for your child's special day",
+  "loading": "Loading packages...",
+  "error": "Failed to load packages. Please try again.",
+  "noPackages": "No packages available at the moment.",
+  "details": {
+    "title": "Package Details",
+    "duration": "Duration",
+    "guests": "Guests",
+    "price": "Price",
+    "features": "What's Included",
+    "description": "Description"
+  },
+  "filters": {
+    "all": "All Packages",
+    "popular": "Popular",
+    "featured": "Featured",
+    "sortBy": "Sort By",
+    "priceAsc": "Price: Low to High",
+    "priceDesc": "Price: High to Low",
+    "duration": "Duration"
+  }
+}

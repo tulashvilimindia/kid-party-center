@@ -1,0 +1,39 @@
+{
+  "title": "Contact Us",
+  "subtitle": "Get in touch with us to book your perfect party!",
+  "form": {
+    "name": "Your Name",
+    "namePlaceholder": "Enter your name",
+    "email": "Email Address",
+    "emailPlaceholder": "your.email@example.com",
+    "phone": "Phone Number",
+    "phonePlaceholder": "+995 XXX XXX XXX",
+    "childName": "Child's Name",
+    "childNamePlaceholder": "Birthday child's name",
+    "age": "Child's Age",
+    "agePlaceholder": "Age",
+    "date": "Preferred Date",
+    "guests": "Number of Guests",
+    "guestsPlaceholder": "How many children?",
+    "package": "Preferred Package",
+    "packagePlaceholder": "Select a package (optional)",
+    "message": "Message",
+    "messagePlaceholder": "Tell us about your party plans...",
+    "submit": "Send Message",
+    "sending": "Sending...",
+    "success": "Thank you! We'll contact you soon.",
+    "error": "Something went wrong. Please try again."
+  },
+  "info": {
+    "title": "Contact Information",
+    "location": "Location",
+    "phone": "Phone",
+    "email": "Email",
+    "hours": "Working Hours",
+    "hoursDetails": "Monday - Sunday: 10:00 - 20:00"
+  },
+  "map": {
+    "title": "Find Us",
+    "directions": "Get Directions"
+  }
+}

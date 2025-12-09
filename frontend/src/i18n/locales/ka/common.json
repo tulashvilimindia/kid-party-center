@@ -1,0 +1,57 @@
+{
+  "nav": {
+    "home": "მთავარი",
+    "packages": "პაკეტები",
+    "calculator": "კალკულატორი",
+    "calendar": "კალენდარი",
+    "gallery": "გალერეა",
+    "about": "ჩვენს შესახებ",
+    "contact": "კონტაქტი",
+    "faq": "კითხვები"
+  },
+  "buttons": {
+    "bookNow": "დაჯავშნე ახლავე!",
+    "bookYourParty": "დაჯავშენი შენი წვეულება!",
+    "viewDetails": "დეტალები",
+    "viewAllPackages": "ყველა პაკეტი",
+    "checkAvailability": "შეამოწმე ხელმისაწვდომობა",
+    "sendMessage": "გაგზავნა",
+    "calculate": "გამოთვლა",
+    "learnMore": "გაიგე მეტი",
+    "readMore": "წაიკითხე მეტი"
+  },
+  "footer": {
+    "brand": "KidParty",
+    "tagline": "დაუვიწყარი ბავშვების წვეულებები ბათუმში!",
+    "quickLinks": "სწრაფი ბმულები",
+    "information": "ინფორმაცია",
+    "contactUs": "დაგვიკავშირდით",
+    "allRightsReserved": "ყველა უფლება დაცულია",
+    "makingKidsHappy": "ვაბედნიერებთ ბავშვებს!",
+    "madeWith": "შექმნილია",
+    "and": "და",
+    "inBatumi": "ბათუმში, საქართველო",
+    "aboutUs": "ჩვენს შესახებ",
+    "privacyPolicy": "კონფიდენციალურობა",
+    "termsConditions": "წესები და პირობები"
+  },
+  "contact": {
+    "location": "ბათუმი, საქართველო",
+    "phone": "+995 577 123 456",
+    "email": "info@kidparty.ge"
+  },
+  "categories": {
+    "food": "საჭმელი",
+    "drinks": "სასმელები",
+    "dessert": "დესერტი",
+    "extras": "დამატებითი"
+  },
+  "common": {
+    "loading": "იტვირთება...",
+    "error": "რაღაც არასწორად წავიდა. სცადეთ თავიდან.",
+    "perChild": "ბავშვზე",
+    "guests": "სტუმარი",
+    "minutes": "წუთი",
+    "min": "წთ"
+  }
+}

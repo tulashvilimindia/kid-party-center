@@ -21,13 +21,13 @@ const Header = () => {
   }, [location]);
 
   const navLinks = [
-    { path: '/', label: 'Home' },
-    { path: '/packages', label: 'Packages' },
-    { path: '/calculator', label: 'Calculator' },
-    { path: '/calendar', label: 'Calendar' },
-    { path: '/gallery', label: 'Gallery' },
-    { path: '/about', label: 'About' },
-    { path: '/contact', label: 'Contact' },
+    { path: '/', label: '🏠 Home', emoji: '🏠' },
+    { path: '/packages', label: '🎁 Packages', emoji: '🎁' },
+    { path: '/calculator', label: '🧮 Calculator', emoji: '🧮' },
+    { path: '/calendar', label: '📅 Calendar', emoji: '📅' },
+    { path: '/gallery', label: '📸 Gallery', emoji: '📸' },
+    { path: '/about', label: 'ℹ️ About', emoji: 'ℹ️' },
+    { path: '/contact', label: '📞 Contact', emoji: '📞' },
   ];
 
   return (
@@ -35,9 +35,11 @@ const Header = () => {
       <div className="container">
         <div className="header-content">
           {/* Logo */}
-          <Link to="/" className="logo">
-            <span className="logo-text">Beqa</span>
+          <Link to="/" className="logo wiggle-on-hover">
+            <span className="logo-emoji">🎉</span>
+            <span className="logo-text">Kid</span>
             <span className="logo-text-accent">Party</span>
+            <span className="logo-emoji">🎈</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -55,7 +57,7 @@ const Header = () => {
 
           {/* Book Now Button */}
           <Link to="/contact" className="btn btn-primary btn-book">
-            Book Now
+            🎊 Book Now!
           </Link>
 
           {/* Mobile Menu Button */}
@@ -82,7 +84,7 @@ const Header = () => {
             </Link>
           ))}
           <Link to="/contact" className="btn btn-primary btn-mobile">
-            Book Now
+            🎊 Book Your Party Now!
           </Link>
         </nav>
       </div>

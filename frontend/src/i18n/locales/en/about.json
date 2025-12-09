@@ -1,0 +1,35 @@
+{
+  "title": "About KidParty",
+  "subtitle": "Where magical memories are made!",
+  "story": {
+    "title": "Our Story",
+    "content": "KidParty was founded with a simple mission: to create unforgettable birthday experiences for children in Batumi. We believe every child deserves a magical celebration filled with joy, laughter, and wonderful memories."
+  },
+  "mission": {
+    "title": "Our Mission",
+    "content": "To provide safe, fun, and memorable party experiences that bring joy to children and peace of mind to parents."
+  },
+  "values": {
+    "title": "Our Values",
+    "safety": {
+      "title": "Safety First",
+      "description": "Your child's safety is our top priority"
+    },
+    "fun": {
+      "title": "Maximum Fun",
+      "description": "We create joyful experiences kids will never forget"
+    },
+    "quality": {
+      "title": "Quality Service",
+      "description": "Professional staff and premium facilities"
+    },
+    "care": {
+      "title": "We Care",
+      "description": "Every detail matters to us"
+    }
+  },
+  "team": {
+    "title": "Our Team",
+    "description": "Our experienced team of party planners and entertainers are dedicated to making your child's special day perfect."
+  }
+}

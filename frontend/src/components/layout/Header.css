@@ -31,12 +31,14 @@
 .logo {
   display: flex;
   align-items: center;
+  gap: 0.5rem;
   font-size: 2rem;
   font-weight: 900;
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.3s var(--bounce-timing);
   text-transform: uppercase;
   letter-spacing: 2px;
+  font-family: var(--font-heading);
 }
 
 .logo:hover {
@@ -44,14 +46,25 @@
   filter: drop-shadow(0 0 20px rgba(255, 149, 0, 0.6));
 }
 
+.logo-emoji {
+  font-size: 2.5rem;
+  animation: bounce 2s infinite;
+  filter: drop-shadow(0 0 10px rgba(255, 149, 0, 0.5));
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(10deg); }
+}
+
 .logo-text {
   color: var(--primary-orange);
-  text-shadow: 2px 2px 0px rgba(255, 45, 146, 0.5);
+  text-shadow: 3px 3px 0px rgba(255, 45, 146, 0.5);
 }
 
 .logo-text-accent {
   color: var(--secondary-blue);
-  text-shadow: 2px 2px 0px rgba(168, 85, 247, 0.5);
+  text-shadow: 3px 3px 0px rgba(168, 85, 247, 0.5);
 }
 
 /* Desktop Navigation */
@@ -112,19 +125,21 @@
 .mobile-menu-btn {
   display: none;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
   background: none;
   border: none;
   cursor: pointer;
   padding: 0.5rem;
+  z-index: 1001;
 }
 
 .mobile-menu-btn span {
-  width: 25px;
-  height: 3px;
-  background: var(--primary-orange);
-  border-radius: 2px;
-  transition: all 0.3s ease;
+  width: 30px;
+  height: 4px;
+  background: var(--gradient-primary);
+  border-radius: 4px;
+  transition: all 0.3s var(--bounce-timing);
+  box-shadow: 0 0 10px rgba(255, 149, 0, 0.5);
 }
 
 .mobile-menu-btn.open span:nth-child(1) {
@@ -155,17 +170,32 @@
 }
 
 .nav-link-mobile {
-  padding: 0.875rem 1rem;
-  color: var(--dark-gray);
-  font-weight: 500;
-  border-radius: var(--radius-sm);
-  transition: all 0.3s ease;
+  padding: 1rem 1.5rem;
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1.125rem;
+  border-radius: var(--radius-lg);
+  transition: all 0.3s var(--bounce-timing);
+  background: var(--bg-card);
+  border: 2px solid transparent;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.nav-link-mobile:hover,
-.nav-link-mobile.active {
-  background: var(--light-gray);
+.nav-link-mobile:hover {
+  background: var(--bg-card-hover);
   color: var(--primary-orange);
+  transform: translateX(10px) scale(1.05);
+  border-color: var(--primary-orange);
+  box-shadow: 0 0 20px rgba(255, 149, 0, 0.4);
+}
+
+.nav-link-mobile.active {
+  background: var(--gradient-primary);
+  color: var(--white);
+  box-shadow: var(--shadow-glow-orange);
+  transform: scale(1.05);
 }
 
 .btn-mobile {

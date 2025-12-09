@@ -1,0 +1,33 @@
+{
+  "hero": {
+    "title": "Unforgettable Kids Parties in Batumi!",
+    "subtitle": "Fun, safe, magical experiences for children."
+  },
+  "features": {
+    "venue": {
+      "title": "Amazing Venue",
+      "description": "Safe, clean, and fun-filled party spaces designed for kids"
+    },
+    "activities": {
+      "title": "Fun Activities",
+      "description": "Face painting, games, entertainment, and so much more"
+    },
+    "food": {
+      "title": "Delicious Food",
+      "description": "Kid-friendly menu options that everyone will love"
+    },
+    "stressFree": {
+      "title": "Stress-Free",
+      "description": "We handle everything - you just enjoy the celebration"
+    }
+  },
+  "packages": {
+    "title": "Our Party Packages",
+    "subtitle": "Choose the perfect package for your child's special day",
+    "popular": "Popular"
+  },
+  "cta": {
+    "title": "Ready to Create Magical Memories?",
+    "subtitle": "Book your party today and give your child an unforgettable celebration!"
+  }
+}

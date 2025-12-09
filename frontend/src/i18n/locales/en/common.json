@@ -1,0 +1,57 @@
+{
+  "nav": {
+    "home": "Home",
+    "packages": "Packages",
+    "calculator": "Calculator",
+    "calendar": "Calendar",
+    "gallery": "Gallery",
+    "about": "About",
+    "contact": "Contact",
+    "faq": "FAQ"
+  },
+  "buttons": {
+    "bookNow": "Book Now!",
+    "bookYourParty": "Book Your Party Now!",
+    "viewDetails": "View Details",
+    "viewAllPackages": "View All Packages",
+    "checkAvailability": "Check Availability",
+    "sendMessage": "Send Message",
+    "calculate": "Calculate",
+    "learnMore": "Learn More",
+    "readMore": "Read More"
+  },
+  "footer": {
+    "brand": "KidParty",
+    "tagline": "Unforgettable Kids Parties in Batumi!",
+    "quickLinks": "Quick Links",
+    "information": "Information",
+    "contactUs": "Contact Us",
+    "allRightsReserved": "All Rights Reserved",
+    "makingKidsHappy": "Making Kids Happy!",
+    "madeWith": "Made with",
+    "and": "&",
+    "inBatumi": "in Batumi, Georgia",
+    "aboutUs": "About Us",
+    "privacyPolicy": "Privacy Policy",
+    "termsConditions": "Terms & Conditions"
+  },
+  "contact": {
+    "location": "Batumi, Georgia",
+    "phone": "+995 577 123 456",
+    "email": "info@kidparty.ge"
+  },
+  "categories": {
+    "food": "Food",
+    "drinks": "Drinks",
+    "dessert": "Dessert",
+    "extras": "Extras"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong. Please try again.",
+    "perChild": "per child",
+    "guests": "guests",
+    "minutes": "minutes",
+    "min": "min"
+  }
+}
