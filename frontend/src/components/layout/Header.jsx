@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
 import './Header.css';
 
 const Header = () => {
+  const { t } = useTranslation('common');
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -22,13 +24,13 @@ const Header = () => {
   }, [location]);
 
   const navLinks = [
-    { path: '/', label: '🏠 Home', emoji: '🏠' },
-    { path: '/packages', label: '🎁 Packages', emoji: '🎁' },
-    { path: '/calculator', label: '🧮 Calculator', emoji: '🧮' },
-    { path: '/calendar', label: '📅 Calendar', emoji: '📅' },
-    { path: '/gallery', label: '📸 Gallery', emoji: '📸' },
-    { path: '/about', label: 'ℹ️ About', emoji: 'ℹ️' },
-    { path: '/contact', label: '📞 Contact', emoji: '📞' },
+    { path: '/', labelKey: 'nav.home', emoji: '🏠' },
+    { path: '/packages', labelKey: 'nav.packages', emoji: '🎁' },
+    { path: '/calculator', labelKey: 'nav.calculator', emoji: '🧮' },
+    { path: '/calendar', labelKey: 'nav.calendar', emoji: '📅' },
+    { path: '/gallery', labelKey: 'nav.gallery', emoji: '📸' },
+    { path: '/about', labelKey: 'nav.about', emoji: 'ℹ️' },
+    { path: '/contact', labelKey: 'nav.contact', emoji: '📞' },
   ];
 
   return (
@@ -51,7 +53,7 @@ const Header = () => {
                 to={link.path}
                 className={`nav-link ${location.pathname === link.path ? 'active' : ''}`}
               >
-                {link.label}
+                {link.emoji} {t(link.labelKey)}
               </Link>
             ))}
           </nav>
@@ -61,7 +63,7 @@ const Header = () => {
 
           {/* Book Now Button */}
           <Link to="/contact" className="btn btn-primary btn-book">
-            🎊 Book Now!
+            🎊 {t('buttons.bookNow')}
           </Link>
 
           {/* Mobile Menu Button */}
@@ -84,11 +86,11 @@ const Header = () => {
               to={link.path}
               className={`nav-link-mobile ${location.pathname === link.path ? 'active' : ''}`}
             >
-              {link.label}
+              {link.emoji} {t(link.labelKey)}
             </Link>
           ))}
           <Link to="/contact" className="btn btn-primary btn-mobile">
-            🎊 Book Your Party Now!
+            🎊 {t('buttons.bookNow')}
           </Link>
         </nav>
       </div>

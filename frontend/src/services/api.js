@@ -1,4 +1,5 @@
 import axios from 'axios';
+import i18n from '../i18n/i18n';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:1337/api';
 
@@ -9,10 +10,16 @@ const api = axios.create({
   },
 });
 
+// Helper function to get current locale
+const getLocale = () => {
+  return i18n.language || 'en';
+};
+
 // Packages API
 export const getPackages = async () => {
   try {
-    const response = await api.get('/packages?populate=*');
+    const locale = getLocale();
+    const response = await api.get(`/packages?populate=*&locale=${locale}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching packages:', error);
@@ -22,7 +29,8 @@ export const getPackages = async () => {
 
 export const getPackageBySlug = async (slug) => {
   try {
-    const response = await api.get(`/packages?filters[slug][$eq]=${slug}&populate=*`);
+    const locale = getLocale();
+    const response = await api.get(`/packages?filters[slug][$eq]=${slug}&populate=*&locale=${locale}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching package:', error);
@@ -33,7 +41,8 @@ export const getPackageBySlug = async (slug) => {
 // Menu Items API
 export const getMenuItems = async () => {
   try {
-    const response = await api.get('/menu-items?populate=*');
+    const locale = getLocale();
+    const response = await api.get(`/menu-items?populate=*&locale=${locale}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching menu items:', error);
@@ -43,7 +52,8 @@ export const getMenuItems = async () => {
 
 export const getMenuItemsByCategory = async (category) => {
   try {
-    const response = await api.get(`/menu-items?filters[category][$eq]=${category}&populate=*`);
+    const locale = getLocale();
+    const response = await api.get(`/menu-items?filters[category][$eq]=${category}&populate=*&locale=${locale}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching menu items by category:', error);
@@ -85,7 +95,8 @@ export const getAvailableSlots = async () => {
 // Gallery API
 export const getGalleryImages = async () => {
   try {
-    const response = await api.get('/gallery-images?populate=*');
+    const locale = getLocale();
+    const response = await api.get(`/gallery-images?populate=*&locale=${locale}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching gallery images:', error);
@@ -96,7 +107,8 @@ export const getGalleryImages = async () => {
 // Site Settings API
 export const getSiteSettings = async () => {
   try {
-    const response = await api.get('/site-setting?populate=*');
+    const locale = getLocale();
+    const response = await api.get(`/site-setting?populate=*&locale=${locale}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching site settings:', error);
