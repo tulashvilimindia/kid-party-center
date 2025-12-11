@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { getPackages } from '../services/api';
 import './Packages.css';
 
 const Packages = () => {
+  const { t, i18n } = useTranslation('packages');
   const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
@@ -22,7 +24,7 @@ const Packages = () => {
     };
 
     fetchPackages();
-  }, []);
+  }, [i18n.language]);
 
   const getFilteredPackages = () => {
     if (filter === 'all') return packages;

@@ -1,17 +1,22 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { getPartySlots } from '../services/api';
 import './Calendar.css';
 
 const Calendar = () => {
   console.log('🎯 Calendar component rendering');
 
+  const { t, i18n } = useTranslation('calendar');
   const [slots, setSlots] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('available');
   const hasFetched = useRef(false);
 
   useEffect(() => {
+    // Reset fetch flag when language changes
+    hasFetched.current = false;
+
     const fetchSlots = async () => {
       // Prevent duplicate fetches in StrictMode
       if (hasFetched.current) return;
@@ -47,7 +52,7 @@ const Calendar = () => {
     };
 
     fetchSlots();
-  }, []);
+  }, [i18n.language]);
 
   const getFilteredSlots = () => {
     const now = new Date();

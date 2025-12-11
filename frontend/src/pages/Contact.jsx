@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './Contact.css';
 
 const Contact = () => {
+  const { t } = useTranslation('contact');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -48,9 +50,9 @@ const Contact = () => {
       {/* Page Header */}
       <section className="page-header">
         <div className="container">
-          <h1 className="text-gradient">Contact Us</h1>
+          <h1 className="text-gradient">{t('title')}</h1>
           <p className="page-subtitle">
-            Get in touch to plan your perfect party
+            {t('subtitle')}
           </p>
         </div>
       </section>
@@ -69,14 +71,14 @@ const Contact = () => {
               {submitted && (
                 <div className="success-message">
                   <span className="success-icon">✓</span>
-                  <p>Thank you! We'll contact you soon.</p>
+                  <p>{t('form.success')}</p>
                 </div>
               )}
 
               <form onSubmit={handleSubmit} className="contact-form">
                 <div className="form-row">
                   <div className="form-group">
-                    <label htmlFor="name">Name *</label>
+                    <label htmlFor="name">{t('form.name')} *</label>
                     <input
                       type="text"
                       id="name"
@@ -84,12 +86,12 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      placeholder="Your full name"
+                      placeholder={t('form.namePlaceholder')}
                     />
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="phone">Phone *</label>
+                    <label htmlFor="phone">{t('form.phone')} *</label>
                     <input
                       type="tel"
                       id="phone"
@@ -97,13 +99,13 @@ const Contact = () => {
                       value={formData.phone}
                       onChange={handleChange}
                       required
-                      placeholder="+995 XXX XXX XXX"
+                      placeholder={t('form.phonePlaceholder')}
                     />
                   </div>
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="email">Email *</label>
+                  <label htmlFor="email">{t('form.email')} *</label>
                   <input
                     type="email"
                     id="email"
@@ -111,13 +113,13 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    placeholder="your.email@example.com"
+                    placeholder={t('form.emailPlaceholder')}
                   />
                 </div>
 
                 <div className="form-row">
                   <div className="form-group">
-                    <label htmlFor="date">Preferred Date</label>
+                    <label htmlFor="date">{t('form.date')}</label>
                     <input
                       type="date"
                       id="date"
@@ -128,7 +130,7 @@ const Contact = () => {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="guests">Number of Guests</label>
+                    <label htmlFor="guests">{t('form.guests')}</label>
                     <input
                       type="number"
                       id="guests"
@@ -136,20 +138,20 @@ const Contact = () => {
                       value={formData.guests}
                       onChange={handleChange}
                       min="1"
-                      placeholder="10"
+                      placeholder={t('form.guestsPlaceholder')}
                     />
                   </div>
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="packageInterest">Package Interest</label>
+                  <label htmlFor="packageInterest">{t('form.package')}</label>
                   <select
                     id="packageInterest"
                     name="packageInterest"
                     value={formData.packageInterest}
                     onChange={handleChange}
                   >
-                    <option value="">Select a package</option>
+                    <option value="">{t('form.packagePlaceholder')}</option>
                     <option value="basic">Basic Party</option>
                     <option value="deluxe">Deluxe Party</option>
                     <option value="premium">Premium Party</option>
@@ -158,7 +160,7 @@ const Contact = () => {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="message">Message *</label>
+                  <label htmlFor="message">{t('form.message')} *</label>
                   <textarea
                     id="message"
                     name="message"
@@ -166,12 +168,12 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     rows="5"
-                    placeholder="Tell us about your party plans..."
+                    placeholder={t('form.messagePlaceholder')}
                   ></textarea>
                 </div>
 
                 <button type="submit" className="btn btn-primary btn-lg btn-block">
-                  Send Message
+                  {t('form.submit')}
                 </button>
               </form>
             </div>
@@ -179,34 +181,34 @@ const Contact = () => {
             {/* Contact Info */}
             <div className="contact-info-wrapper">
               <div className="info-card">
-                <h3>Contact Information</h3>
+                <h3>{t('info.title')}</h3>
                 <div className="contact-details">
                   <div className="detail-item">
                     <div className="detail-icon">📍</div>
                     <div>
-                      <strong>Address</strong>
+                      <strong>{t('info.location')}</strong>
                       <p>Batumi, Georgia</p>
                     </div>
                   </div>
                   <div className="detail-item">
                     <div className="detail-icon">📞</div>
                     <div>
-                      <strong>Phone</strong>
+                      <strong>{t('info.phone')}</strong>
                       <p><a href="tel:+995577123456">+995 577 123 456</a></p>
                     </div>
                   </div>
                   <div className="detail-item">
                     <div className="detail-icon">✉️</div>
                     <div>
-                      <strong>Email</strong>
+                      <strong>{t('info.email')}</strong>
                       <p><a href="mailto:info@beqaparty.ge">info@beqaparty.ge</a></p>
                     </div>
                   </div>
                   <div className="detail-item">
                     <div className="detail-icon">🕐</div>
                     <div>
-                      <strong>Hours</strong>
-                      <p>Mon-Sun: 10:00 AM - 8:00 PM</p>
+                      <strong>{t('info.hours')}</strong>
+                      <p>{t('info.hoursDetails')}</p>
                     </div>
                   </div>
                 </div>

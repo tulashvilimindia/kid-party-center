@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { getGalleryImages } from '../services/api';
 import './Gallery.css';
 
 const Gallery = () => {
+  const { t, i18n } = useTranslation('common');
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -22,7 +24,7 @@ const Gallery = () => {
     };
 
     fetchImages();
-  }, []);
+  }, [i18n.language]);
 
   const getFilteredImages = () => {
     if (filter === 'all') return images;

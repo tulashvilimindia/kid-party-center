@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { getPackageBySlug } from '../services/api';
 import './PackageDetail.css';
 
 const PackageDetail = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation('packages');
   const [pkg, setPkg] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -27,7 +29,7 @@ const PackageDetail = () => {
     };
 
     fetchPackage();
-  }, [slug, navigate]);
+  }, [slug, navigate, i18n.language]);
 
   if (loading) {
     return (

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { getPackages, getMenuItems } from '../services/api';
 import './Calculator.css';
 
 const Calculator = () => {
+  const { t, i18n } = useTranslation('calculator');
   const [packages, setPackages] = useState([]);
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -34,7 +36,7 @@ const Calculator = () => {
     };
 
     fetchData();
-  }, []);
+  }, [i18n.language]);
 
   const handlePackageSelect = (pkg) => {
     setSelectedPackage(pkg);

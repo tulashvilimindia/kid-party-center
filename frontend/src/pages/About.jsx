@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { getSiteSettings } from '../services/api';
 import './About.css';
 
 const About = () => {
+  const { t, i18n } = useTranslation('about');
   const [settings, setSettings] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -20,7 +22,7 @@ const About = () => {
     };
 
     fetchSettings();
-  }, []);
+  }, [i18n.language]);
 
   if (loading) {
     return (
