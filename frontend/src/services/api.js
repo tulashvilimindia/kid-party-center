@@ -11,8 +11,16 @@ const api = axios.create({
 });
 
 // Helper function to get current locale
+// Normalizes locale codes: en-US → en, ka-GE → ka, ru-RU → ru
 const getLocale = () => {
-  return i18n.language || 'en';
+  const lang = i18n.language || 'en';
+
+  // Normalize language codes to match database locales
+  if (lang.startsWith('en')) return 'en';
+  if (lang.startsWith('ka')) return 'ka';
+  if (lang.startsWith('ru')) return 'ru';
+
+  return 'en'; // Fallback to English
 };
 
 // Packages API
