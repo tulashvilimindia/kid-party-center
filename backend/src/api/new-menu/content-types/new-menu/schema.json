@@ -1,11 +1,10 @@
 {
-  "kind": "singleType",
-  "collectionName": "social_links",
+  "kind": "collectionType",
+  "collectionName": "new_menus",
   "info": {
-    "singularName": "social-link",
-    "pluralName": "social-links",
-    "displayName": "Social Link",
-    "description": "Social media links for the website"
+    "singularName": "new-menu",
+    "pluralName": "new-menus",
+    "displayName": "new-menu"
   },
   "options": {
     "draftAndPublish": true
@@ -16,28 +15,20 @@
     }
   },
   "attributes": {
-    "platform": {
-      "type": "enumeration",
+    "label": {
+      "type": "string",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "required": true,
-      "default": "instagram",
-      "enum": [
-        "facebook",
-        "instagram",
-        "tiktok",
-        "youtube",
-        "twitter"
-      ]
+      "required": true
     },
-    "url": {
+    "path": {
       "type": "string",
       "pluginOptions": {
         "i18n": {
-          "localized": false
+          "localized": true
         }
       },
       "required": true
@@ -46,26 +37,24 @@
       "type": "string",
       "pluginOptions": {
         "i18n": {
-          "localized": false
+          "localized": true
         }
       },
-      "required": false
+      "required": true
     },
     "order": {
       "type": "integer",
       "pluginOptions": {
         "i18n": {
-          "localized": false
+          "localized": true
         }
-      },
-      "required": true,
-      "default": 1
+      }
     },
     "isActive": {
       "type": "boolean",
       "pluginOptions": {
         "i18n": {
-          "localized": false
+          "localized": true
         }
       },
       "default": true

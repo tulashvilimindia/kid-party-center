@@ -1,11 +1,10 @@
 {
-  "kind": "singleType",
-  "collectionName": "social_links",
+  "kind": "collectionType",
+  "collectionName": "socials",
   "info": {
-    "singularName": "social-link",
-    "pluralName": "social-links",
-    "displayName": "Social Link",
-    "description": "Social media links for the website"
+    "singularName": "social",
+    "pluralName": "socials",
+    "displayName": "Social"
   },
   "options": {
     "draftAndPublish": true
@@ -24,13 +23,11 @@
         }
       },
       "required": true,
-      "default": "instagram",
       "enum": [
         "facebook",
         "instagram",
         "tiktok",
-        "youtube",
-        "twitter"
+        "youtube"
       ]
     },
     "url": {
@@ -48,18 +45,16 @@
         "i18n": {
           "localized": false
         }
-      },
-      "required": false
+      }
     },
     "order": {
       "type": "integer",
       "pluginOptions": {
         "i18n": {
-          "localized": false
+          "localized": true
         }
       },
-      "required": true,
-      "default": 1
+      "required": true
     },
     "isActive": {
       "type": "boolean",
@@ -67,8 +62,7 @@
         "i18n": {
           "localized": false
         }
-      },
-      "default": true
+      }
     }
   }
 }

@@ -506,7 +506,7 @@ export interface ApiMenuItemMenuItem extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiNavigationMenuNavigationMenu
+export interface ApiNavigationMenuBackupNavigationMenu
   extends Struct.CollectionTypeSchema {
   collectionName: 'navigation_menus';
   info: {
@@ -536,7 +536,7 @@ export interface ApiNavigationMenuNavigationMenu
     isActive: Schema.Attribute.Boolean &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
-          localized: false;
+          localized: true;
         };
       }> &
       Schema.Attribute.DefaultTo<true>;
@@ -550,7 +550,7 @@ export interface ApiNavigationMenuNavigationMenu
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::navigation-menu.navigation-menu'
+      'api::navigation-menu-backup.navigation-menu'
     >;
     order: Schema.Attribute.Integer &
       Schema.Attribute.Required &
@@ -565,6 +565,105 @@ export interface ApiNavigationMenuNavigationMenu
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiNavigationNavigation extends Struct.CollectionTypeSchema {
+  collectionName: 'navigations';
+  info: {
+    displayName: 'Navigation';
+    pluralName: 'navigations';
+    singularName: 'navigation';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    icon: Schema.Attribute.String;
+    isActive: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::navigation.navigation'
+    > &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Integer;
+    path: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiNewMenuNewMenu extends Struct.CollectionTypeSchema {
+  collectionName: 'new_menus';
+  info: {
+    displayName: 'new-menu';
+    pluralName: 'new-menus';
+    singularName: 'new-menu';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    icon: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    isActive: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<true>;
+    label: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::new-menu.new-menu'
+    >;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    path: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
         };
       }>;
     publishedAt: Schema.Attribute.DateTime;
@@ -826,7 +925,7 @@ export interface ApiSiteSettingSiteSetting extends Struct.SingleTypeSchema {
   };
 }
 
-export interface ApiSocialLinkSocialLink extends Struct.CollectionTypeSchema {
+export interface ApiSocialLinkSocialLink extends Struct.SingleTypeSchema {
   collectionName: 'social_links';
   info: {
     description: 'Social media links for the website';
@@ -878,7 +977,71 @@ export interface ApiSocialLinkSocialLink extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'instagram'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    url: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
           localized: false;
+        };
+      }>;
+  };
+}
+
+export interface ApiSocialSocial extends Struct.CollectionTypeSchema {
+  collectionName: 'socials';
+  info: {
+    displayName: 'Social';
+    pluralName: 'socials';
+    singularName: 'social';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    icon: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    isActive: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::social.social'>;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    platform: Schema.Attribute.Enumeration<
+      ['facebook', 'instagram', 'tiktok', 'youtube']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
         };
       }>;
     publishedAt: Schema.Attribute.DateTime;
@@ -1407,11 +1570,14 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::gallery-image.gallery-image': ApiGalleryImageGalleryImage;
       'api::menu-item.menu-item': ApiMenuItemMenuItem;
-      'api::navigation-menu.navigation-menu': ApiNavigationMenuNavigationMenu;
+      'api::navigation-menu-backup.navigation-menu': ApiNavigationMenuBackupNavigationMenu;
+      'api::navigation.navigation': ApiNavigationNavigation;
+      'api::new-menu.new-menu': ApiNewMenuNewMenu;
       'api::package.package': ApiPackagePackage;
       'api::party-slot.party-slot': ApiPartySlotPartySlot;
       'api::site-setting.site-setting': ApiSiteSettingSiteSetting;
       'api::social-link.social-link': ApiSocialLinkSocialLink;
+      'api::social.social': ApiSocialSocial;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

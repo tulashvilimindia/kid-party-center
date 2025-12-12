@@ -18,49 +18,49 @@
   "attributes": {
     "label": {
       "type": "string",
-      "required": true,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "required": true
     },
     "path": {
       "type": "string",
-      "required": true,
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
+      },
+      "required": true
     },
     "icon": {
       "type": "string",
-      "required": false,
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
+      },
+      "required": false
     },
     "order": {
       "type": "integer",
-      "required": true,
-      "default": 1,
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
-      }
+      },
+      "required": true,
+      "default": 1
     },
     "isActive": {
       "type": "boolean",
-      "default": true,
       "pluginOptions": {
         "i18n": {
-          "localized": false
+          "localized": true
         }
-      }
+      },
+      "default": true
     }
   }
 }
