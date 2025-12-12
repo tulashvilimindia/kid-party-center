@@ -120,6 +120,23 @@ After restart, the `/api/socials` endpoint will work!
 - Those only use CSS class names "social-links" - no changes needed ✅
 - Timestamp: 2025-12-12 14:30
 
+### ✅ Step 4: Remove Duplicate Entries - COMPLETE
+**Problem Found:** Migration created 3 copies of each record (69 navigation, 9 social)
+- Original data was duplicated during Strapi content type creation
+
+**Cleanup Performed:**
+- **Navigations:** Deleted 14 duplicate records, kept 7 unique (oldest from Dec 9)
+  - Deleted IDs: 22, 25, 28, 31, 34, 37, 40, 43, 46, 49, 52, 55, 58, 61
+  - Kept IDs: 1, 4, 7, 10, 13, 16, 19
+- **Socials:** Deleted 6 duplicate records, kept 3 unique (oldest from Dec 9)
+  - Deleted IDs: 4, 5, 6, 7, 8, 9
+  - Kept IDs: 1, 2, 3
+
+**Current State:**
+- ✅ `/api/navigations?locale=en` → 7 items (Home, Packages, Calculator, Calendar, Gallery, About, Contact)
+- ✅ `/api/socials?locale=en` → 3 items (Facebook, Instagram, TikTok)
+- Timestamp: 2025-12-12 14:35
+
 ---
 
 ## 🧪 TESTING STEPS
