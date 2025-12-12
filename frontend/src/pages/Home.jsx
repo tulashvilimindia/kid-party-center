@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getPackages, getSiteSettings } from '../services/api';
+import LanguageSwitcher from '../components/LanguageSwitcher/LanguageSwitcher';
 import './Home.css';
 
 const Home = () => {
   const { t, i18n } = useTranslation(['home', 'common']);
+  const { lang } = useParams();
+  const currentLang = lang || i18n.language || 'en';
   const [packages, setPackages] = useState([]);
   const [settings, setSettings] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  // Helper function to build path with language
+  const buildPath = (path) => {
+    const cleanPath = path.replace(/^\//, ''); // Remove leading slash if exists
+    return `/${currentLang}${cleanPath ? '/' + cleanPath : ''}`;
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,10 +63,10 @@ const Home = () => {
               {settings?.heroSubtitle}
             </p>
             <div className="hero-buttons">
-              <Link to="/packages" className="btn btn-primary btn-lg">
+              <Link to={buildPath('packages')} className="btn btn-primary btn-lg">
                 {t('home:hero.viewPackages')}
               </Link>
-              <Link to="/contact" className="btn btn-outline btn-lg">
+              <Link to={buildPath('contact')} className="btn btn-outline btn-lg">
                 {t('common:buttons.bookNow')}
               </Link>
             </div>
@@ -127,7 +136,7 @@ const Home = () => {
                   <span className="price-amount">${pkg.pricePerChild}</span>
                   <span className="price-text">{t('home:packages.perChild')}</span>
                 </div>
-                <Link to={`/packages/${pkg.slug}`} className="btn btn-primary btn-block">
+                <Link to={buildPath(`packages/${pkg.slug}`)} className="btn btn-primary btn-block">
                   {t('common:buttons.viewDetails')}
                 </Link>
               </div>
@@ -135,7 +144,7 @@ const Home = () => {
           </div>
 
           <div className="text-center mt-5">
-            <Link to="/packages" className="btn btn-secondary btn-lg">
+            <Link to={buildPath('packages')} className="btn btn-secondary btn-lg">
               {t('home:packages.viewAll')}
             </Link>
           </div>
@@ -149,10 +158,10 @@ const Home = () => {
             <h2>{settings?.ctaTitle || t('home:cta.title')}</h2>
             <p>{settings?.ctaSubtitle || t('home:cta.subtitle')}</p>
             <div className="cta-buttons">
-              <Link to="/contact" className="btn btn-primary btn-lg">
+              <Link to={buildPath('contact')} className="btn btn-primary btn-lg">
                 {t('home:cta.bookButton')}
               </Link>
-              <Link to="/calendar" className="btn btn-outline btn-lg">
+              <Link to={buildPath('calendar')} className="btn btn-outline btn-lg">
                 {t('home:cta.checkAvailability')}
               </Link>
             </div>
