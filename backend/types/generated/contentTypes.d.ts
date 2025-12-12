@@ -467,6 +467,39 @@ export interface ApiGalleryImageGalleryImage
   };
 }
 
+export interface ApiGalleryGallery extends Struct.CollectionTypeSchema {
+  collectionName: 'galleries';
+  info: {
+    displayName: 'Gallery';
+    pluralName: 'galleries';
+    singularName: 'gallery';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    folder: Schema.Attribute.Enumeration<
+      ['general', 'playground', 'spaces', 'exterior', 'interior', 'amenities']
+    >;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos', true> &
+      Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::gallery.gallery'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiMenuItemMenuItem extends Struct.CollectionTypeSchema {
   collectionName: 'menu_items';
   info: {
@@ -1569,6 +1602,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::gallery-image.gallery-image': ApiGalleryImageGalleryImage;
+      'api::gallery.gallery': ApiGalleryGallery;
       'api::menu-item.menu-item': ApiMenuItemMenuItem;
       'api::navigation-menu-backup.navigation-menu': ApiNavigationMenuBackupNavigationMenu;
       'api::navigation.navigation': ApiNavigationNavigation;

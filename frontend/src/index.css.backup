@@ -4,12 +4,12 @@
 
 :root {
   /* Brand Colors - Super Bright & Playful for Kids! */
-  --primary-orange: #FFB000;
-  --secondary-blue: #00E5FF;
-  --accent-pink: #FF1A8C;
-  --purple: #B968FF;
-  --yellow: #FFE41A;
-  --green: #40E668;
+  --primary-orange: #FF9500;
+  --secondary-blue: #00D4FF;
+  --accent-pink: #FF2D92;
+  --purple: #A855F7;
+  --yellow: #FFD60A;
+  --green: #30D158;
   --lime: #32CD32;
   --coral: #FF6B6B;
   --sky: #87CEEB;

@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams, useLocation } from 'react-router-dom';
 import './LanguageSwitcher.css';
 
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
-  const { lang } = useParams();
-  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
 
   const languages = [
@@ -15,18 +12,11 @@ const LanguageSwitcher = () => {
     { code: 'ru', name: 'Русский', flag: '🇷🇺' }
   ];
 
-  const currentLang = lang || i18n.language || 'en';
-  const currentLanguage = languages.find(l => l.code === currentLang) || languages[0];
+  const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
 
-  const changeLanguage = (newLang) => {
-    // Get current path without language prefix
-    const pathWithoutLang = location.pathname.replace(/^\/(en|ka|ru)/, '');
-
-    // Build new path with new language
-    const newPath = `/${newLang}${pathWithoutLang}`;
-
-    // Full page reload to new URL
-    window.location.href = newPath;
+  const changeLanguage = (langCode) => {
+    i18n.changeLanguage(langCode);
+    setIsOpen(false);
   };
 
   return (
@@ -46,12 +36,12 @@ const LanguageSwitcher = () => {
           {languages.map((lang) => (
             <button
               key={lang.code}
-              className={`language-option ${lang.code === currentLang ? 'active' : ''}`}
+              className={`language-option ${lang.code === i18n.language ? 'active' : ''}`}
               onClick={() => changeLanguage(lang.code)}
             >
               <span className="flag">{lang.flag}</span>
               <span className="lang-name">{lang.name}</span>
-              {lang.code === currentLang && <span className="checkmark">✓</span>}
+              {lang.code === i18n.language && <span className="checkmark">✓</span>}
             </button>
           ))}
         </div>

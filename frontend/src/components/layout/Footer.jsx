@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getSiteSettings, getSocialLinks } from '../../services/api';
 import './Footer.css';
 
 const Footer = () => {
   const { t, i18n } = useTranslation('common');
+  const { lang } = useParams();
   const [settings, setSettings] = useState(null);
   const [socialLinks, setSocialLinks] = useState([]);
   const currentYear = new Date().getFullYear();
+
+  // Get current language from URL or fallback to i18n
+  const currentLang = lang || i18n.language || 'en';
+
+  // Helper function to build paths with language prefix
+  const buildPath = (path) => {
+    const cleanPath = path.replace(/^\//, '');
+    return `/${currentLang}${cleanPath ? '/' + cleanPath : ''}`;
+  };
 
   useEffect(() => {
     const fetchFooterData = async () => {
@@ -33,7 +43,7 @@ const Footer = () => {
         <div className="footer-content">
           {/* Brand Section */}
           <div className="footer-section">
-            <Link to="/" className="footer-logo wiggle-on-hover">
+            <Link to={`/${currentLang}`} className="footer-logo wiggle-on-hover">
               <span className="logo-emoji">🎉</span>
               <span className="logo-text">Kid</span>
               <span className="logo-text-accent">Party</span>
@@ -85,11 +95,11 @@ const Footer = () => {
           <div className="footer-section">
             <h4 className="footer-title">🔗 Quick Links</h4>
             <ul className="footer-links">
-              <li><Link to="/">🏠 Home</Link></li>
-              <li><Link to="/packages">🎁 Packages</Link></li>
-              <li><Link to="/calculator">🧮 Calculator</Link></li>
-              <li><Link to="/calendar">📅 Calendar</Link></li>
-              <li><Link to="/gallery">📸 Gallery</Link></li>
+              <li><Link to={buildPath('')}>🏠 Home</Link></li>
+              <li><Link to={buildPath('packages')}>🎁 Packages</Link></li>
+              <li><Link to={buildPath('calculator')}>🧮 Calculator</Link></li>
+              <li><Link to={buildPath('calendar')}>📅 Calendar</Link></li>
+              <li><Link to={buildPath('gallery')}>📸 Gallery</Link></li>
             </ul>
           </div>
 
@@ -97,11 +107,11 @@ const Footer = () => {
           <div className="footer-section">
             <h4 className="footer-title">ℹ️ Information</h4>
             <ul className="footer-links">
-              <li><Link to="/about">👨‍👩‍👧‍👦 About Us</Link></li>
-              <li><Link to="/contact">📞 Contact</Link></li>
-              <li><Link to="/faq">❓ FAQ</Link></li>
-              <li><Link to="/privacy">🔒 Privacy Policy</Link></li>
-              <li><Link to="/terms">📋 Terms & Conditions</Link></li>
+              <li><Link to={buildPath('about')}>👨‍👩‍👧‍👦 About Us</Link></li>
+              <li><Link to={buildPath('contact')}>📞 Contact</Link></li>
+              <li><Link to={buildPath('faq')}>❓ FAQ</Link></li>
+              <li><Link to={buildPath('privacy')}>🔒 Privacy Policy</Link></li>
+              <li><Link to={buildPath('terms')}>📋 Terms & Conditions</Link></li>
             </ul>
           </div>
 

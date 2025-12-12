@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getGalleryImages } from '../services/api';
-import StrapiImage from '../components/common/StrapiImage';
 import './Gallery.css';
 
 const Gallery = () => {
@@ -104,12 +103,17 @@ const Gallery = () => {
                   onClick={() => openLightbox(image)}
                 >
                   <div className="gallery-image-wrapper">
-                    <StrapiImage
-                      image={image.image}
-                      alt={image.title || 'Party photo'}
-                      defaultEmoji="🎉"
-                      showLoading={true}
-                    />
+                    {image.imageUrl ? (
+                      <img
+                        src={image.imageUrl}
+                        alt={image.title || 'Party photo'}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="placeholder-image">
+                        <span>🎉</span>
+                      </div>
+                    )}
                     <div className="gallery-overlay">
                       <div className="overlay-content">
                         <h4>{image.title}</h4>
@@ -141,12 +145,16 @@ const Gallery = () => {
             ›
           </button>
           <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
-            <StrapiImage
-              image={selectedImage.image}
-              alt={selectedImage.title || 'Party photo'}
-              defaultEmoji="🎉"
-              showLoading={false}
-            />
+            {selectedImage.imageUrl ? (
+              <img
+                src={selectedImage.imageUrl}
+                alt={selectedImage.title || 'Party photo'}
+              />
+            ) : (
+              <div className="placeholder-image-large">
+                <span>🎉</span>
+              </div>
+            )}
             {(selectedImage.title || selectedImage.description) && (
               <div className="lightbox-caption">
                 {selectedImage.title && <h3>{selectedImage.title}</h3>}
