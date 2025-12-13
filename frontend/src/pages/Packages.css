@@ -94,9 +94,6 @@
 
 /* Package Header */
 .package-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
   margin-bottom: var(--spacing-md);
   padding-bottom: var(--spacing-md);
   border-bottom: 2px solid var(--background-light);
@@ -106,27 +103,38 @@
   font-size: 1.5rem;
   color: var(--text-dark);
   font-weight: 700;
-  flex: 1;
 }
 
-.package-price {
+/* Package Price at Bottom */
+.package-price-bottom {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+  padding: var(--spacing-md);
+  background: linear-gradient(135deg, rgba(255, 176, 0, 0.1) 0%, rgba(255, 26, 140, 0.1) 100%);
+  border-radius: var(--border-radius-md);
+  border: 2px solid var(--primary-orange);
+  margin-bottom: var(--spacing-md);
 }
 
-.price-amount {
-  font-size: 1.75rem;
+.package-price-bottom .price-amount {
+  font-size: 2rem;
   font-weight: 800;
   background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  margin-bottom: 0.25rem;
 }
 
-.price-text {
+.package-price-bottom .price-text {
   color: var(--text-muted);
-  font-size: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* Package Description */

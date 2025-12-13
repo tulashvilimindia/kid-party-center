@@ -103,11 +103,11 @@ export const getAvailableSlots = async () => {
 // Gallery API
 export const getGalleryImages = async () => {
   try {
-    const locale = getLocale();
-    const response = await api.get(`/gallery-images?populate=*&locale=${locale}`);
+    // No locale needed - galleries content type doesn't have internationalization
+    const response = await api.get(`/galleries?populate=*`);
     return response.data;
   } catch (error) {
-    console.error('Error fetching gallery images:', error);
+    console.error('Error fetching galleries:', error);
     throw error;
   }
 };

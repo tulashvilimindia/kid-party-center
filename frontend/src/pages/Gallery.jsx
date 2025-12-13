@@ -25,14 +25,14 @@ const Gallery = () => {
     };
 
     fetchImages();
-  }, [i18n.language]);
+  }, []); // No language dependency - galleries don't have internationalization
 
   const getFilteredImages = () => {
     if (filter === 'all') return images;
-    return images.filter(img => img.category === filter);
+    return images.filter(img => img.folder === filter);
   };
 
-  const categories = ['all', ...new Set(images.map(img => img.category).filter(Boolean))];
+  const categories = ['all', ...new Set(images.map(img => img.folder).filter(Boolean))];
   const filteredImages = getFilteredImages();
 
   const openLightbox = (image) => {
@@ -105,7 +105,7 @@ const Gallery = () => {
                 >
                   <div className="gallery-image-wrapper">
                     <StrapiImage
-                      image={image.image}
+                      image={image.image?.[0]}
                       alt={image.title || 'Party photo'}
                       defaultEmoji="🎉"
                       showLoading={true}
@@ -142,7 +142,7 @@ const Gallery = () => {
           </button>
           <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
             <StrapiImage
-              image={selectedImage.image}
+              image={selectedImage.image?.[0]}
               alt={selectedImage.title || 'Party photo'}
               defaultEmoji="🎉"
               showLoading={false}

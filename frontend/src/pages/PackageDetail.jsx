@@ -5,11 +5,13 @@ import { getPackageBySlug } from '../services/api';
 import './PackageDetail.css';
 
 const PackageDetail = () => {
-  const { slug } = useParams();
+  const { slug, lang } = useParams();
   const navigate = useNavigate();
   const { t, i18n } = useTranslation('packages');
   const [pkg, setPkg] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const currentLang = lang || i18n.language || 'en';
 
   useEffect(() => {
     const fetchPackage = async () => {
@@ -48,9 +50,9 @@ const PackageDetail = () => {
       {/* Breadcrumb */}
       <div className="breadcrumb">
         <div className="container">
-          <Link to="/">Home</Link>
+          <Link to={`/${currentLang}`}>Home</Link>
           <span className="separator">/</span>
-          <Link to="/packages">Packages</Link>
+          <Link to={`/${currentLang}/packages`}>Packages</Link>
           <span className="separator">/</span>
           <span className="current">{pkg.name}</span>
         </div>
@@ -147,7 +149,7 @@ const PackageDetail = () => {
                   </div>
                 </div>
                 <p className="pricing-note">
-                  * Use our <Link to="/calculator">price calculator</Link> for accurate quotes based on your guest count
+                  * Use our <Link to={`/${currentLang}/calculator`}>price calculator</Link> for accurate quotes based on your guest count
                 </p>
               </div>
             </div>
@@ -164,13 +166,13 @@ const PackageDetail = () => {
                 </div>
 
                 <div className="booking-actions">
-                  <Link to="/contact" className="btn btn-primary btn-block btn-lg">
+                  <Link to={`/${currentLang}/contact`} className="btn btn-primary btn-block btn-lg">
                     Book Now
                   </Link>
-                  <Link to="/calculator" className="btn btn-secondary btn-block">
+                  <Link to={`/${currentLang}/calculator`} className="btn btn-secondary btn-block">
                     Calculate Price
                   </Link>
-                  <Link to="/calendar" className="btn btn-outline btn-block">
+                  <Link to={`/${currentLang}/calendar`} className="btn btn-outline btn-block">
                     Check Availability
                   </Link>
                 </div>
@@ -214,7 +216,7 @@ const PackageDetail = () => {
         <div className="container">
           <h2 className="text-center">Other Packages You Might Like</h2>
           <div className="text-center" style={{ marginTop: 'var(--spacing-xl)' }}>
-            <Link to="/packages" className="btn btn-secondary btn-lg">
+            <Link to={`/${currentLang}/packages`} className="btn btn-secondary btn-lg">
               View All Packages
             </Link>
           </div>

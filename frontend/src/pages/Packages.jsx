@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getPackages } from '../services/api';
 import './Packages.css';
 
 const Packages = () => {
   const { t, i18n } = useTranslation('packages');
+  const { lang } = useParams();
   const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
+
+  const currentLang = lang || i18n.language || 'en';
 
   useEffect(() => {
     const fetchPackages = async () => {
@@ -105,13 +108,20 @@ const Packages = () => {
                 <div key={pkg.id} className="package-card">
                   <div className="package-header">
                     <h3>{pkg.name}</h3>
-                    <div className="package-price">
-                      <span className="price-amount">${pkg.pricePerChild}</span>
-                      <span className="price-text">per child</span>
-                    </div>
                   </div>
 
                   <p className="package-description">{pkg.shortDescription}</p>
+
+                  {pkg.description && (
+                    <div className="package-features">
+                      <strong>Highlights:</strong>
+                      <ul>
+                        {pkg.description.split('\n').slice(0, 3).map((line, idx) => (
+                          line.trim() && <li key={idx}>{line.trim()}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
 
                   <div className="package-info">
                     <div className="info-item">
@@ -130,19 +140,13 @@ const Packages = () => {
                     </div>
                   </div>
 
-                  {pkg.description && (
-                    <div className="package-features">
-                      <strong>Highlights:</strong>
-                      <ul>
-                        {pkg.description.split('\n').slice(0, 3).map((line, idx) => (
-                          line.trim() && <li key={idx}>{line.trim()}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                  <div className="package-price-bottom">
+                    <span className="price-amount">${pkg.pricePerChild}</span>
+                    <span className="price-text">per child</span>
+                  </div>
 
                   <Link
-                    to={`/packages/${pkg.slug}`}
+                    to={`/${currentLang}/packages/${pkg.slug}`}
                     className="btn btn-primary btn-block"
                   >
                     View Details
@@ -161,10 +165,10 @@ const Packages = () => {
             <h2>Not sure which package to choose?</h2>
             <p>Use our calculator to estimate costs or contact us for personalized recommendations!</p>
             <div className="cta-buttons">
-              <Link to="/calculator" className="btn btn-secondary btn-lg">
+              <Link to={`/${currentLang}/calculator`} className="btn btn-secondary btn-lg">
                 Price Calculator
               </Link>
-              <Link to="/contact" className="btn btn-outline btn-lg">
+              <Link to={`/${currentLang}/contact`} className="btn btn-outline btn-lg">
                 Contact Us
               </Link>
             </div>

@@ -10,9 +10,9 @@ const LanguageSwitcher = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const languages = [
-    { code: 'en', name: 'English', flag: '🇬🇧' },
-    { code: 'ka', name: 'ქართული', flag: '🇬🇪' },
-    { code: 'ru', name: 'Русский', flag: '🇷🇺' }
+    { code: 'en', label: 'EN' },
+    { code: 'ka', label: 'GE' },
+    { code: 'ru', label: 'RU' }
   ];
 
   const currentLang = lang || i18n.language || 'en';
@@ -36,8 +36,7 @@ const LanguageSwitcher = () => {
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Select language"
       >
-        <span className="flag">{currentLanguage.flag}</span>
-        <span className="lang-code">{currentLanguage.code.toUpperCase()}</span>
+        <span className="lang-label">{currentLanguage.label}</span>
         <span className={`arrow ${isOpen ? 'open' : ''}`}>▼</span>
       </button>
 
@@ -49,8 +48,7 @@ const LanguageSwitcher = () => {
               className={`language-option ${lang.code === currentLang ? 'active' : ''}`}
               onClick={() => changeLanguage(lang.code)}
             >
-              <span className="flag">{lang.flag}</span>
-              <span className="lang-name">{lang.name}</span>
+              <span className="lang-label">{lang.label}</span>
               {lang.code === currentLang && <span className="checkmark">✓</span>}
             </button>
           ))}

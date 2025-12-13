@@ -29,14 +29,11 @@
   box-shadow: 0 0 15px rgba(255, 149, 0, 0.4);
 }
 
-.language-btn .flag {
-  font-size: 1.5rem;
-  line-height: 1;
-}
-
-.language-btn .lang-code {
+.language-btn .lang-label {
   font-family: var(--font-heading);
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 .language-btn .arrow {
@@ -100,13 +97,12 @@
   color: var(--white);
 }
 
-.language-option .flag {
-  font-size: 1.5rem;
-  line-height: 1;
-}
-
-.language-option .lang-name {
+.language-option .lang-label {
   flex: 1;
+  font-family: var(--font-heading);
+  letter-spacing: 1.5px;
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 .language-option .checkmark {
@@ -121,8 +117,8 @@
     padding: 0.5rem 0.75rem;
   }
 
-  .language-btn .lang-code {
-    display: none;
+  .language-btn .lang-label {
+    font-size: 0.875rem;
   }
 
   .language-dropdown {
