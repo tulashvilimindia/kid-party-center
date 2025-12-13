@@ -500,6 +500,71 @@ export interface ApiGalleryGallery extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiHeadermenuHeadermenu extends Struct.CollectionTypeSchema {
+  collectionName: 'headermenus';
+  info: {
+    displayName: 'headermenu';
+    pluralName: 'headermenus';
+    singularName: 'headermenu';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    icon: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    isActive: Schema.Attribute.Boolean &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<true>;
+    label: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::headermenu.headermenu'
+    >;
+    order: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    path: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiMenuItemMenuItem extends Struct.CollectionTypeSchema {
   collectionName: 'menu_items';
   info: {
@@ -1603,6 +1668,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::gallery-image.gallery-image': ApiGalleryImageGalleryImage;
       'api::gallery.gallery': ApiGalleryGallery;
+      'api::headermenu.headermenu': ApiHeadermenuHeadermenu;
       'api::menu-item.menu-item': ApiMenuItemMenuItem;
       'api::navigation-menu-backup.navigation-menu': ApiNavigationMenuBackupNavigationMenu;
       'api::navigation.navigation': ApiNavigationNavigation;

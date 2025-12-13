@@ -1,9 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getNavigationMenu } from '../../services/api';
+import { getHeaderMenu } from '../../services/api';
 import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
 import './Header.css';
+
+// Icon mapper - converts icon names from API to emojis
+const getIconEmoji = (iconName) => {
+  const iconMap = {
+    'home': '🏠',
+    'packages': '🎁',
+    'calculator': '🧮',
+    'calendar': '📅',
+    'gallery': '📸',
+    'about': 'ℹ️',
+    'contact': '📞',
+  };
+  return iconMap[iconName?.toLowerCase()] || '📌';
+};
 
 const Header = () => {
   const { t, i18n } = useTranslation('common');
@@ -28,24 +42,31 @@ const Header = () => {
     setIsMobileMenuOpen(false);
   }, [location]);
 
-  // Fetch navigation menu from CMS
+  // Fetch header menu from CMS
   useEffect(() => {
     const fetchNavigation = async () => {
       try {
         setLoading(true);
-        const response = await getNavigationMenu();
-        setNavItems(response.data || []);
+        const response = await getHeaderMenu();
+
+        // Process menu items and convert icon names to emojis
+        const processedItems = (response.data || []).map(item => ({
+          ...item,
+          icon: getIconEmoji(item.icon)
+        }));
+
+        setNavItems(processedItems);
       } catch (error) {
-        console.error('Error loading navigation:', error);
+        console.error('Error loading header menu:', error);
         // Fallback to default navigation if API fails
         setNavItems([
-          { path: '', label: t('nav.home'), icon: '🏠', order: 1 },
-          { path: 'packages', label: t('nav.packages'), icon: '🎁', order: 2 },
-          { path: 'calculator', label: t('nav.calculator'), icon: '🧮', order: 3 },
-          { path: 'calendar', label: t('nav.calendar'), icon: '📅', order: 4 },
-          { path: 'gallery', label: t('nav.gallery'), icon: '📸', order: 5 },
-          { path: 'about', label: t('nav.about'), icon: 'ℹ️', order: 6 },
-          { path: 'contact', label: t('nav.contact'), icon: '📞', order: 7 },
+          { path: '/', label: 'HOME', icon: '🏠', order: 1 },
+          { path: '/packages', label: 'PACKAGES', icon: '🎁', order: 2 },
+          { path: '/calculator', label: 'CALCULATOR', icon: '🧮', order: 3 },
+          { path: '/calendar', label: 'CALENDAR', icon: '📅', order: 4 },
+          { path: '/gallery', label: 'GALLERY', icon: '📸', order: 5 },
+          { path: '/about', label: 'ABOUT', icon: 'ℹ️', order: 6 },
+          { path: '/contact', label: 'CONTACT', icon: '📞', order: 7 },
         ]);
       } finally {
         setLoading(false);
@@ -53,7 +74,7 @@ const Header = () => {
     };
 
     fetchNavigation();
-  }, [i18n.language, t]);
+  }, [i18n.language]);
 
   // Helper function to build path with language
   const buildPath = (path) => {

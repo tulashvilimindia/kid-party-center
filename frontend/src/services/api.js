@@ -147,6 +147,18 @@ export const getNavigationMenu = async () => {
   }
 };
 
+// Header Menu API
+export const getHeaderMenu = async () => {
+  try {
+    const locale = getLocale();
+    const response = await api.get(`/headermenus?locale=${locale}&filters[isActive][$eq]=true&sort=order:asc&pagination[pageSize]=100`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching header menu:', error);
+    throw error;
+  }
+};
+
 // Social Links API
 export const getSocialLinks = async () => {
   try {
