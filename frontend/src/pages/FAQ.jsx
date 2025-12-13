@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './FAQ.css';
 
 const FAQ = () => {
   const [activeIndex, setActiveIndex] = useState(null);
+  const { lang } = useParams();
+  const { i18n } = useTranslation();
+  const currentLang = lang || i18n.language || 'en';
 
   const faqs = [
     {
@@ -100,7 +104,7 @@ const FAQ = () => {
               <div className="help-card">
                 <h3>Still Have Questions?</h3>
                 <p>Can't find the answer you're looking for? Our team is here to help!</p>
-                <Link to="/contact" className="btn btn-primary btn-block">
+                <Link to={`/${currentLang}/contact`} className="btn btn-primary btn-block">
                   Contact Us
                 </Link>
               </div>
@@ -108,10 +112,10 @@ const FAQ = () => {
               <div className="help-card">
                 <h3>Quick Links</h3>
                 <div className="quick-links">
-                  <Link to="/packages">View Packages</Link>
-                  <Link to="/calculator">Price Calculator</Link>
-                  <Link to="/calendar">Check Availability</Link>
-                  <Link to="/about">About Us</Link>
+                  <Link to={`/${currentLang}/packages`}>View Packages</Link>
+                  <Link to={`/${currentLang}/calculator`}>Price Calculator</Link>
+                  <Link to={`/${currentLang}/calendar`}>Check Availability</Link>
+                  <Link to={`/${currentLang}/about`}>About Us</Link>
                 </div>
               </div>
             </div>

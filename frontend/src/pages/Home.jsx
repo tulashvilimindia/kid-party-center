@@ -133,7 +133,7 @@ const Home = () => {
                   </div>
                 </div>
                 <div className="package-price">
-                  <span className="price-amount">${pkg.pricePerChild}</span>
+                  <span className="price-amount">₾{pkg.pricePerChild}</span>
                   <span className="price-text">{t('home:packages.perChild')}</span>
                 </div>
                 <Link to={buildPath(`packages/${pkg.slug}`)} className="btn btn-primary btn-block">

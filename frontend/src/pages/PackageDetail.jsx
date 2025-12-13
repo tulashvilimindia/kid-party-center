@@ -83,7 +83,7 @@ const PackageDetail = () => {
                 <span className="meta-icon">💰</span>
                 <div>
                   <strong>Price</strong>
-                  <p>${pkg.pricePerChild} per child</p>
+                  <p>₾{pkg.pricePerChild} per child</p>
                 </div>
               </div>
             </div>
@@ -129,7 +129,7 @@ const PackageDetail = () => {
                 <div className="pricing-table">
                   <div className="pricing-row">
                     <span>Base Price (per child)</span>
-                    <strong>${pkg.pricePerChild}</strong>
+                    <strong>₾{pkg.pricePerChild}</strong>
                   </div>
                   <div className="pricing-row">
                     <span>Minimum Guests</span>
@@ -144,7 +144,7 @@ const PackageDetail = () => {
                   <div className="pricing-row total">
                     <span>Estimated Total ({pkg.minGuests} guests)</span>
                     <strong className="total-price">
-                      ${pkg.pricePerChild * pkg.minGuests}
+                      ₾{pkg.pricePerChild * pkg.minGuests}
                     </strong>
                   </div>
                 </div>
@@ -160,7 +160,7 @@ const PackageDetail = () => {
                 <div className="card-header">
                   <h3>Book This Package</h3>
                   <div className="price-display">
-                    <span className="price">${pkg.pricePerChild}</span>
+                    <span className="price">₾{pkg.pricePerChild}</span>
                     <span className="price-label">per child</span>
                   </div>
                 </div>

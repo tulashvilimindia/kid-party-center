@@ -92,11 +92,6 @@ const Header = () => {
           {/* Language Switcher */}
           <LanguageSwitcher />
 
-          {/* Book Now Button */}
-          <Link to={`/${currentLang}/contact`} className="btn btn-primary btn-book">
-            🎊 {t('buttons.bookNow')}
-          </Link>
-
           {/* Mobile Menu Button */}
           <button
             className={`mobile-menu-btn ${isMobileMenuOpen ? 'open' : ''}`}
@@ -123,9 +118,6 @@ const Header = () => {
               </Link>
             );
           })}
-          <Link to={`/${currentLang}/contact`} className="btn btn-primary btn-mobile">
-            🎊 {t('buttons.bookNow')}
-          </Link>
         </nav>
       </div>
     </header>

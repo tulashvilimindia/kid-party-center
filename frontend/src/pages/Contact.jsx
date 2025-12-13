@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './Contact.css';
 
 const Contact = () => {
-  const { t } = useTranslation('contact');
+  const { t, i18n } = useTranslation('contact');
+  const { lang } = useParams();
+  const currentLang = lang || i18n.language || 'en';
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -217,19 +220,19 @@ const Contact = () => {
               <div className="info-card">
                 <h3>Quick Links</h3>
                 <div className="quick-links">
-                  <Link to="/packages" className="quick-link">
+                  <Link to={`/${currentLang}/packages`} className="quick-link">
                     <span>📦</span>
                     <span>View Packages</span>
                   </Link>
-                  <Link to="/calculator" className="quick-link">
+                  <Link to={`/${currentLang}/calculator`} className="quick-link">
                     <span>🧮</span>
                     <span>Price Calculator</span>
                   </Link>
-                  <Link to="/calendar" className="quick-link">
+                  <Link to={`/${currentLang}/calendar`} className="quick-link">
                     <span>📅</span>
                     <span>Check Availability</span>
                   </Link>
-                  <Link to="/faq" className="quick-link">
+                  <Link to={`/${currentLang}/faq`} className="quick-link">
                     <span>❓</span>
                     <span>FAQ</span>
                   </Link>

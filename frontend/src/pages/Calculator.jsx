@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getPackages, getMenuItems } from '../services/api';
 import './Calculator.css';
 
 const Calculator = () => {
   const { t, i18n } = useTranslation('calculator');
+  const { lang } = useParams();
   const [packages, setPackages] = useState([]);
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const currentLang = lang || i18n.language || 'en';
 
   // Form state
   const [selectedPackage, setSelectedPackage] = useState(null);
@@ -112,7 +115,7 @@ const Calculator = () => {
                     >
                       <div className="option-header">
                         <h4>{pkg.name}</h4>
-                        <span className="option-price">${pkg.pricePerChild}/child</span>
+                        <span className="option-price">₾{pkg.pricePerChild}/child</span>
                       </div>
                       <p>{pkg.shortDescription}</p>
                       <div className="option-meta">
@@ -181,7 +184,7 @@ const Calculator = () => {
                               <span className="menu-category">{item.category}</span>
                             </div>
                           </label>
-                          <span className="menu-price">${item.pricePerServing}</span>
+                          <span className="menu-price">₾{item.pricePerServing}</span>
                         </div>
                         {selectedMenuItems[item.id] > 0 && (
                           <div className="menu-quantity">
@@ -228,11 +231,11 @@ const Calculator = () => {
                       <h4>Package</h4>
                       <div className="summary-item">
                         <span>{selectedPackage.name}</span>
-                        <span>${selectedPackage.pricePerChild} × {guestCount}</span>
+                        <span>₾{selectedPackage.pricePerChild} × {guestCount}</span>
                       </div>
                       <div className="summary-total">
                         <strong>Subtotal</strong>
-                        <strong>${packageTotal.toFixed(2)}</strong>
+                        <strong>₾{packageTotal.toFixed(2)}</strong>
                       </div>
                     </div>
 
@@ -246,27 +249,27 @@ const Calculator = () => {
                           return (
                             <div key={itemId} className="summary-item">
                               <span>{item.name} (×{quantity})</span>
-                              <span>${(item.pricePerServing * quantity).toFixed(2)}</span>
+                              <span>₾{(item.pricePerServing * quantity).toFixed(2)}</span>
                             </div>
                           );
                         })}
                         <div className="summary-total">
                           <strong>Subtotal</strong>
-                          <strong>${menuTotal.toFixed(2)}</strong>
+                          <strong>₾{menuTotal.toFixed(2)}</strong>
                         </div>
                       </div>
                     )}
 
                     <div className="summary-grand-total">
                       <span>Total Cost</span>
-                      <span className="grand-total-amount">${grandTotal.toFixed(2)}</span>
+                      <span className="grand-total-amount">₾{grandTotal.toFixed(2)}</span>
                     </div>
 
                     <div className="summary-actions">
-                      <Link to="/contact" className="btn btn-primary btn-block btn-lg">
+                      <Link to={`/${currentLang}/contact`} className="btn btn-primary btn-block btn-lg">
                         Book This Party
                       </Link>
-                      <Link to="/calendar" className="btn btn-secondary btn-block">
+                      <Link to={`/${currentLang}/calendar`} className="btn btn-secondary btn-block">
                         Check Availability
                       </Link>
                     </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getPartySlots } from '../services/api';
 import './Calendar.css';
@@ -8,10 +8,13 @@ const Calendar = () => {
   console.log('🎯 Calendar component rendering');
 
   const { t, i18n } = useTranslation('calendar');
+  const { lang } = useParams();
   const [slots, setSlots] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('available');
   const hasFetched = useRef(false);
+
+  const currentLang = lang || i18n.language || 'en';
 
   useEffect(() => {
     // Reset fetch flag when language changes
@@ -287,7 +290,7 @@ const Calendar = () => {
                   ? 'No available slots at the moment. Please check back later or contact us.'
                   : 'No slots match your current filter.'}
               </p>
-              <Link to="/contact" className="btn btn-primary btn-lg">
+              <Link to={`/${currentLang}/contact`} className="btn btn-primary btn-lg">
                 Contact Us
               </Link>
             </div>
@@ -327,7 +330,7 @@ const Calendar = () => {
                           {slot.status === 'available' ? (
                             <>
                               <span className="status-badge available">Available</span>
-                              <Link to="/contact" className="btn btn-primary btn-sm">
+                              <Link to={`/${currentLang}/contact`} className="btn btn-primary btn-sm">
                                 Book Now
                               </Link>
                             </>
@@ -336,7 +339,7 @@ const Calendar = () => {
                           ) : slot.status === 'limited' ? (
                             <>
                               <span className="status-badge limited">Limited Spots</span>
-                              <Link to="/contact" className="btn btn-secondary btn-sm">
+                              <Link to={`/${currentLang}/contact`} className="btn btn-secondary btn-sm">
                                 Book Now
                               </Link>
                             </>
@@ -362,7 +365,7 @@ const Calendar = () => {
               <div className="info-icon">📞</div>
               <h4>Need a Custom Time?</h4>
               <p>Don't see a time that works for you? Contact us to discuss custom scheduling options.</p>
-              <Link to="/contact" className="btn btn-outline">
+              <Link to={`/${currentLang}/contact`} className="btn btn-outline">
                 Contact Us
               </Link>
             </div>
@@ -370,7 +373,7 @@ const Calendar = () => {
               <div className="info-icon">📋</div>
               <h4>Plan Your Party</h4>
               <p>Use our calculator to estimate costs and explore our packages before booking.</p>
-              <Link to="/calculator" className="btn btn-outline">
+              <Link to={`/${currentLang}/calculator`} className="btn btn-outline">
                 Price Calculator
               </Link>
             </div>
@@ -378,7 +381,7 @@ const Calendar = () => {
               <div className="info-icon">🎉</div>
               <h4>View Packages</h4>
               <p>Explore our party packages to find the perfect celebration for your child.</p>
-              <Link to="/packages" className="btn btn-outline">
+              <Link to={`/${currentLang}/packages`} className="btn btn-outline">
                 View Packages
               </Link>
             </div>

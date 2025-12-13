@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getSiteSettings } from '../services/api';
 import './About.css';
 
 const About = () => {
   const { t, i18n } = useTranslation('about');
+  const { lang } = useParams();
   const [settings, setSettings] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const currentLang = lang || i18n.language || 'en';
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -159,10 +162,10 @@ const About = () => {
             <h2>Ready to Plan Your Party?</h2>
             <p>Let's create an unforgettable celebration for your child!</p>
             <div className="cta-buttons">
-              <Link to="/packages" className="btn btn-primary btn-lg">
+              <Link to={`/${currentLang}/packages`} className="btn btn-primary btn-lg">
                 View Packages
               </Link>
-              <Link to="/contact" className="btn btn-outline btn-lg">
+              <Link to={`/${currentLang}/contact`} className="btn btn-outline btn-lg">
                 Contact Us
               </Link>
             </div>

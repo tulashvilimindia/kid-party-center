@@ -141,7 +141,7 @@ const Packages = () => {
                   </div>
 
                   <div className="package-price-bottom">
-                    <span className="price-amount">${pkg.pricePerChild}</span>
+                    <span className="price-amount">₾{pkg.pricePerChild}</span>
                     <span className="price-text">per child</span>
                   </div>
 

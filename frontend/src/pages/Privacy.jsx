@@ -1,8 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './LegalPages.css';
 
 const Privacy = () => {
+  const { lang } = useParams();
+  const { i18n } = useTranslation();
+  const currentLang = lang || i18n.language || 'en';
+
   return (
     <div className="legal-page">
       {/* Page Header */}
@@ -139,17 +144,17 @@ const Privacy = () => {
               <div className="sidebar-card">
                 <h3>Quick Links</h3>
                 <nav className="sidebar-nav">
-                  <Link to="/terms">Terms & Conditions</Link>
-                  <Link to="/contact">Contact Us</Link>
-                  <Link to="/faq">FAQ</Link>
-                  <Link to="/about">About Us</Link>
+                  <Link to={`/${currentLang}/terms`}>Terms & Conditions</Link>
+                  <Link to={`/${currentLang}/contact`}>Contact Us</Link>
+                  <Link to={`/${currentLang}/faq`}>FAQ</Link>
+                  <Link to={`/${currentLang}/about`}>About Us</Link>
                 </nav>
               </div>
 
               <div className="sidebar-card highlight">
                 <h3>Questions?</h3>
                 <p>If you have concerns about your privacy, please reach out to us.</p>
-                <Link to="/contact" className="btn btn-primary btn-sm btn-block">
+                <Link to={`/${currentLang}/contact`} className="btn btn-primary btn-sm btn-block">
                   Contact Us
                 </Link>
               </div>
