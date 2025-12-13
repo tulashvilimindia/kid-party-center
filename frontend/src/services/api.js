@@ -183,4 +183,16 @@ export const getFooter = async () => {
   }
 };
 
+// Homepage API
+export const getHomepage = async () => {
+  try {
+    const locale = getLocale();
+    const response = await api.get(`/homepage?locale=${locale}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching homepage:', error);
+    throw error;
+  }
+};
+
 export default api;
