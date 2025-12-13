@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getSiteSettings, getSocialLinks } from '../../services/api';
+import { getSiteSettings, getSocialLinks, getFooter } from '../../services/api';
 import './Footer.css';
 
 const Footer = () => {
@@ -9,6 +9,7 @@ const Footer = () => {
   const { lang } = useParams();
   const [settings, setSettings] = useState(null);
   const [socialLinks, setSocialLinks] = useState([]);
+  const [footer, setFooter] = useState(null);
   const currentYear = new Date().getFullYear();
 
   // Get current language from URL or fallback to i18n
@@ -23,12 +24,14 @@ const Footer = () => {
   useEffect(() => {
     const fetchFooterData = async () => {
       try {
-        const [settingsData, socialData] = await Promise.all([
+        const [settingsData, socialData, footerData] = await Promise.all([
           getSiteSettings(),
-          getSocialLinks()
+          getSocialLinks(),
+          getFooter()
         ]);
         setSettings(settingsData.data);
         setSocialLinks(socialData.data || []);
+        setFooter(footerData.data);
       } catch (error) {
         console.error('Error fetching footer data:', error);
       }
@@ -37,6 +40,9 @@ const Footer = () => {
     fetchFooterData();
   }, [i18n.language]);
 
+  // Get footer copy with fallback
+  const copy = footer?.copy || {};
+
   return (
     <footer className="footer">
       <div className="container">
@@ -44,13 +50,13 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="footer-section">
             <Link to={`/${currentLang}`} className="footer-logo wiggle-on-hover">
-              <span className="logo-emoji">🎉</span>
-              <span className="logo-text">Kid</span>
+              <span className="logo-emoji">{copy.footer_brand_icon || '🎉'}</span>
+              <span className="logo-text">{copy.footer_brand_name || 'Kid'}</span>
               <span className="logo-text-accent">Party</span>
               <span className="logo-emoji">🎈</span>
             </Link>
             <p className="footer-tagline">
-              {settings?.footerTagline || '🌟 Unforgettable Kids Parties in Batumi! 🌟'}
+              {copy.footer_brand_tagline || settings?.footerTagline || '🌟 Unforgettable Kids Parties in Batumi! 🌟'}
             </p>
             <div className="social-links">
               {socialLinks.length > 0 ? (
@@ -93,43 +99,58 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div className="footer-section">
-            <h4 className="footer-title">🔗 Quick Links</h4>
+            <h4 className="footer-title">{copy.footer_qlinks_header || '🔗 Quick Links'}</h4>
             <ul className="footer-links">
-              <li><Link to={buildPath('')}>🏠 Home</Link></li>
-              <li><Link to={buildPath('packages')}>🎁 Packages</Link></li>
-              <li><Link to={buildPath('calculator')}>🧮 Calculator</Link></li>
-              <li><Link to={buildPath('calendar')}>📅 Calendar</Link></li>
-              <li><Link to={buildPath('gallery')}>📸 Gallery</Link></li>
+              <li><Link to={buildPath('')}>{copy.footer_qlinks_1 || '🏠 Home'}</Link></li>
+              <li><Link to={buildPath('packages')}>{copy.footer_qlinks_2 || '🎁 Packages'}</Link></li>
+              <li><Link to={buildPath('calculator')}>{copy.footer_qlinks_3 || '🧮 Calculator'}</Link></li>
+              <li><Link to={buildPath('calendar')}>{copy.footer_qlinks_4 || '📅 Calendar'}</Link></li>
+              <li><Link to={buildPath('gallery')}>{copy.footer_qlinks_5 || '📸 Gallery'}</Link></li>
             </ul>
           </div>
 
           {/* Information */}
           <div className="footer-section">
-            <h4 className="footer-title">ℹ️ Information</h4>
+            <h4 className="footer-title">{copy.footer_info_header || 'ℹ️ Information'}</h4>
             <ul className="footer-links">
-              <li><Link to={buildPath('about')}>👨‍👩‍👧‍👦 About Us</Link></li>
-              <li><Link to={buildPath('contact')}>📞 Contact</Link></li>
-              <li><Link to={buildPath('faq')}>❓ FAQ</Link></li>
-              <li><Link to={buildPath('privacy')}>🔒 Privacy Policy</Link></li>
-              <li><Link to={buildPath('terms')}>📋 Terms & Conditions</Link></li>
+              <li><Link to={buildPath('about')}>{copy.footer_info_1 || '👥 About Us'}</Link></li>
+              <li><Link to={buildPath('contact')}>{copy.footer_info_2 || '📞 Contact'}</Link></li>
+              <li><Link to={buildPath('faq')}>{copy.footer_info_3 || '❓ FAQ'}</Link></li>
+              <li><Link to={buildPath('privacy')}>{copy.footer_info_4 || '🔒 Privacy Policy'}</Link></li>
+              <li><Link to={buildPath('terms')}>{copy.footer_info_5 || '📄 Terms & Conditions'}</Link></li>
             </ul>
           </div>
 
           {/* Contact Info */}
           <div className="footer-section">
-            <h4 className="footer-title">📞 {t('footer.contactUs')}</h4>
+            <h4 className="footer-title">{copy.footer_contact_header || '📞 Contact Us'}</h4>
             <ul className="footer-contact">
               <li>
-                <span className="contact-emoji">📍</span>
-                {settings?.address || 'Batumi, Georgia'}
+                {copy.footer_contact_1_href ? (
+                  <a href={copy.footer_contact_1_href} target="_blank" rel="noopener noreferrer">
+                    {copy.footer_contact_1 || '📍 Batumi, Georgia'}
+                  </a>
+                ) : (
+                  <span>{copy.footer_contact_1 || '📍 Batumi, Georgia'}</span>
+                )}
               </li>
               <li>
-                <span className="contact-emoji">☎️</span>
-                {settings?.phone || '+995 577 123 456'}
+                {copy.footer_contact_2_href ? (
+                  <a href={copy.footer_contact_2_href}>
+                    {copy.footer_contact_2 || '☎️ +995 577 123 456'}
+                  </a>
+                ) : (
+                  <span>{copy.footer_contact_2 || '☎️ +995 577 123 456'}</span>
+                )}
               </li>
               <li>
-                <span className="contact-emoji">✉️</span>
-                {settings?.email || 'info@kidparty.ge'}
+                {copy.footer_contact_3_href ? (
+                  <a href={copy.footer_contact_3_href}>
+                    {copy.footer_contact_3 || '✉️ info@kidparty.ge'}
+                  </a>
+                ) : (
+                  <span>{copy.footer_contact_3 || '✉️ info@kidparty.ge'}</span>
+                )}
               </li>
             </ul>
           </div>
@@ -137,7 +158,7 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="footer-bottom">
-          <p>© {currentYear} KidParty 🎉 {t('footer.rights')} • {t('footer.making')} 🌈</p>
+          <p>© {currentYear} {copy.footer_brand_name || 'KidParty'} 🎉 {t('footer.rights')} • {t('footer.making')} 🌈</p>
           <p>{t('footer.madeWith')} 💖 & ✨ {t('footer.inBatumi')} 🇬🇪</p>
         </div>
       </div>

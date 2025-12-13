@@ -171,4 +171,16 @@ export const getSocialLinks = async () => {
   }
 };
 
+// Footer API
+export const getFooter = async () => {
+  try {
+    const locale = getLocale();
+    const response = await api.get(`/footer?locale=${locale}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching footer:', error);
+    throw error;
+  }
+};
+
 export default api;
