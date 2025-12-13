@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getPackages } from '../services/api';
+import Button from '../components/ui/Button';
+import Card from '../components/ui/Card';
+import Badge from '../components/ui/Badge';
+import Icons from '../components/ui/Icons';
 import './Packages.css';
 
 const Packages = () => {
@@ -43,136 +47,182 @@ const Packages = () => {
 
   const filteredPackages = getFilteredPackages();
 
+  // Determine badge for package based on price
+  const getPackageBadge = (price) => {
+    if (price >= 50) return { text: '⭐ Premium', variant: 'accent' };
+    if (price >= 30) return { text: '✨ Popular', variant: 'primary' };
+    return { text: '💰 Budget', variant: 'secondary' };
+  };
+
   if (loading) {
     return (
-      <div className="loading">
-        <div className="spinner"></div>
+      <div className="star-loading">
+        <div className="star-spinner"></div>
       </div>
     );
   }
 
   return (
-    <div className="packages-page">
+    <div className="star-packages-page">
       {/* Page Header */}
-      <section className="page-header">
+      <section className="star-page-header">
         <div className="container">
-          <h1 className="text-gradient">Party Packages</h1>
-          <p className="page-subtitle">
+          <h1 className="text-gradient">Party Packages 🎁</h1>
+          <p className="star-page-subtitle">
             Choose the perfect package for your child's special celebration
           </p>
         </div>
       </section>
 
       {/* Filter Section */}
-      <section className="packages-filter">
+      <section className="star-filter-section section-sm">
         <div className="container">
-          <div className="filter-buttons">
-            <button
-              className={`filter-btn ${filter === 'all' ? 'active' : ''}`}
+          <div className="star-filter-buttons">
+            <Button
+              variant={filter === 'all' ? 'primary' : 'ghost'}
+              size="md"
               onClick={() => setFilter('all')}
             >
               All Packages
-            </button>
-            <button
-              className={`filter-btn ${filter === 'budget' ? 'active' : ''}`}
+            </Button>
+            <Button
+              variant={filter === 'budget' ? 'secondary' : 'ghost'}
+              size="md"
               onClick={() => setFilter('budget')}
+              icon="💰"
             >
               Budget Friendly
-            </button>
-            <button
-              className={`filter-btn ${filter === 'standard' ? 'active' : ''}`}
+            </Button>
+            <Button
+              variant={filter === 'standard' ? 'primary' : 'ghost'}
+              size="md"
               onClick={() => setFilter('standard')}
+              icon="✨"
             >
               Standard
-            </button>
-            <button
-              className={`filter-btn ${filter === 'premium' ? 'active' : ''}`}
+            </Button>
+            <Button
+              variant={filter === 'premium' ? 'accent' : 'ghost'}
+              size="md"
               onClick={() => setFilter('premium')}
+              icon="⭐"
             >
               Premium
-            </button>
+            </Button>
           </div>
         </div>
       </section>
 
       {/* Packages Grid */}
-      <section className="packages-section">
+      <section className="star-packages-list section">
         <div className="container">
           {filteredPackages.length === 0 ? (
-            <div className="no-packages">
-              <p>No packages found for this filter.</p>
-            </div>
+            <Card className="star-no-packages">
+              <div className="star-empty-state">
+                <div className="star-empty-icon">📦</div>
+                <h3>No packages found</h3>
+                <p>Try selecting a different filter to see more packages.</p>
+                <Button variant="primary" onClick={() => setFilter('all')}>
+                  Show All Packages
+                </Button>
+              </div>
+            </Card>
           ) : (
-            <div className="packages-grid">
-              {filteredPackages.map((pkg) => (
-                <div key={pkg.id} className="package-card">
-                  <div className="package-header">
-                    <h3>{pkg.name}</h3>
-                  </div>
+            <div className="star-packages-grid">
+              {filteredPackages.map((pkg, index) => {
+                const badge = getPackageBadge(pkg.pricePerChild);
+                const isFeatured = pkg.pricePerChild >= 30 && pkg.pricePerChild < 50;
 
-                  <p className="package-description">{pkg.shortDescription}</p>
-
-                  {pkg.description && (
-                    <div className="package-features">
-                      <strong>Highlights:</strong>
-                      <ul>
-                        {pkg.description.split('\n').slice(0, 3).map((line, idx) => (
-                          line.trim() && <li key={idx}>{line.trim()}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  <div className="package-info">
-                    <div className="info-item">
-                      <span className="info-icon">⏱️</span>
-                      <div>
-                        <strong>Duration</strong>
-                        <p>{pkg.durationMinutes} minutes</p>
-                      </div>
-                    </div>
-                    <div className="info-item">
-                      <span className="info-icon">👥</span>
-                      <div>
-                        <strong>Guests</strong>
-                        <p>{pkg.minGuests}-{pkg.maxGuests || '∞'} children</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="package-price-bottom">
-                    <span className="price-amount">₾{pkg.pricePerChild}</span>
-                    <span className="price-text">per child</span>
-                  </div>
-
-                  <Link
-                    to={`/${currentLang}/packages/${pkg.slug}`}
-                    className="btn btn-primary btn-block"
+                return (
+                  <Card
+                    key={pkg.id}
+                    className="star-package-card"
+                    variant={isFeatured ? 'gradient' : 'default'}
+                    hover={true}
                   >
-                    View Details
-                  </Link>
-                </div>
-              ))}
+                    <Badge
+                      variant={badge.variant}
+                      size="md"
+                      className="star-package-badge"
+                    >
+                      {badge.text}
+                    </Badge>
+
+                    <div className="star-package-header">
+                      <h3>{pkg.name}</h3>
+                      <p className="star-package-description">{pkg.shortDescription}</p>
+                    </div>
+
+                    {pkg.includedFeatures && pkg.includedFeatures.length > 0 && (
+                      <div className="star-package-features">
+                        <h4>Included:</h4>
+                        <ul>
+                          {pkg.includedFeatures.slice(0, 4).map((feature, idx) => (
+                            <li key={idx}>
+                              <Icons name={feature.icon || 'star'} size={16} />
+                              <span>{feature.label}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    <div className="star-package-details">
+                      <div className="star-package-detail">
+                        <Icons name="party" size={20} />
+                        <div>
+                          <strong>Duration</strong>
+                          <span>{pkg.durationMinutes} min</span>
+                        </div>
+                      </div>
+                      <div className="star-package-detail">
+                        <Icons name="party" size={20} />
+                        <div>
+                          <strong>Guests</strong>
+                          <span>{pkg.minGuests}-{pkg.maxGuests || '∞'}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="star-package-price">
+                      <span className="star-price-amount">₾{pkg.pricePerChild}</span>
+                      <span className="star-price-text">per child</span>
+                    </div>
+
+                    <Link to={`/${currentLang}/packages/${pkg.slug}`}>
+                      <Button variant="primary" fullWidth>
+                        View Details
+                      </Button>
+                    </Link>
+                  </Card>
+                );
+              })}
             </div>
           )}
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="cta-banner">
+      <section className="star-packages-cta section">
         <div className="container">
-          <div className="cta-content">
-            <h2>Not sure which package to choose?</h2>
-            <p>Use our calculator to estimate costs or contact us for personalized recommendations!</p>
-            <div className="cta-buttons">
-              <Link to={`/${currentLang}/calculator`} className="btn btn-secondary btn-lg">
-                Price Calculator
-              </Link>
-              <Link to={`/${currentLang}/contact`} className="btn btn-outline btn-lg">
-                Contact Us
-              </Link>
+          <Card variant="gradient" className="star-cta-card">
+            <div className="star-cta-content">
+              <h2>Not sure which package to choose? 🤔</h2>
+              <p>Use our calculator to estimate costs or contact us for personalized recommendations!</p>
+              <div className="star-cta-buttons">
+                <Link to={`/${currentLang}/calculator`}>
+                  <Button variant="white" size="lg" icon="🧮">
+                    Price Calculator
+                  </Button>
+                </Link>
+                <Link to={`/${currentLang}/contact`}>
+                  <Button variant="outline" size="lg" icon="📞">
+                    Contact Us
+                  </Button>
+                </Link>
+              </div>
             </div>
-          </div>
+          </Card>
         </div>
       </section>
     </div>
