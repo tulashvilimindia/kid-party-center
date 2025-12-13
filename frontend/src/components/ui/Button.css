@@ -1,0 +1,173 @@
+/* STAR Button Component - Dark Theme */
+.star-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-weight: var(--font-semibold);
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.star-btn:focus-visible {
+  outline: 2px solid var(--star-primary);
+  outline-offset: 2px;
+  box-shadow: var(--focus-ring);
+}
+
+/* Ripple Effect */
+.star-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.star-btn:active::before {
+  width: 200px;
+  height: 200px;
+}
+
+/* Primary Button - Neon Gradient */
+.star-btn-primary {
+  background: var(--gradient-primary);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-md), var(--shadow-glow-purple);
+}
+
+.star-btn-primary:hover:not(.star-btn-disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg), var(--shadow-glow-purple);
+}
+
+/* Secondary Button - Amber Glow */
+.star-btn-secondary {
+  background: var(--gradient-secondary);
+  color: var(--text-inverse);
+  box-shadow: var(--shadow-md);
+}
+
+.star-btn-secondary:hover:not(.star-btn-disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(245, 158, 11, 0.5);
+}
+
+/* Accent Button - Pink Glow */
+.star-btn-accent {
+  background: var(--gradient-accent);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-md), var(--shadow-glow-pink);
+}
+
+.star-btn-accent:hover:not(.star-btn-disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg), var(--shadow-glow-pink);
+}
+
+/* Outline Button - Neon Border */
+.star-btn-outline {
+  background: transparent;
+  color: var(--text-primary);
+  border: 2px solid var(--star-primary);
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+}
+
+.star-btn-outline:hover:not(.star-btn-disabled) {
+  background: rgba(99, 102, 241, 0.1);
+  border-color: var(--star-purple);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow-purple);
+}
+
+/* Ghost Button - Subtle */
+.star-btn-ghost {
+  background: transparent;
+  color: var(--text-primary);
+  box-shadow: none;
+}
+
+.star-btn-ghost:hover:not(.star-btn-disabled) {
+  background: var(--surface);
+  transform: translateY(-2px);
+}
+
+/* White Button - For dark backgrounds */
+.star-btn-white {
+  background: rgba(241, 245, 249, 0.95);
+  color: var(--text-inverse);
+  box-shadow: var(--shadow-md);
+}
+
+.star-btn-white:hover:not(.star-btn-disabled) {
+  background: rgba(241, 245, 249, 1);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(241, 245, 249, 0.3);
+}
+
+/* Sizes */
+.star-btn-sm {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.star-btn-md {
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-base);
+}
+
+.star-btn-lg {
+  padding: var(--space-4) var(--space-8);
+  font-size: var(--text-lg);
+}
+
+.star-btn-xl {
+  padding: var(--space-5) var(--space-10);
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+}
+
+/* Full Width */
+.star-btn-full {
+  width: 100%;
+  display: flex;
+}
+
+/* Disabled State */
+.star-btn-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: grayscale(50%);
+}
+
+/* Icon */
+.star-btn-icon {
+  display: inline-flex;
+  font-size: 1.2em;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .star-btn-lg {
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--text-base);
+  }
+
+  .star-btn-xl {
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--text-lg);
+  }
+}

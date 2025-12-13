@@ -1,44 +1,47 @@
-/* ===================================
-   LANGUAGE SWITCHER STYLES
-   =================================== */
-
+/* STAR Language Switcher - Dark Theme */
 .language-switcher {
   position: relative;
-  z-index: 100;
+  z-index: var(--z-40);
 }
 
 .language-btn {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.625rem 1rem;
-  background: var(--bg-card);
-  border: 2px solid rgba(255, 149, 0, 0.3);
-  border-radius: var(--radius-lg);
-  color: var(--white);
-  font-weight: 700;
-  font-size: 1rem;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-full);
+  color: var(--text-primary);
+  font-weight: var(--font-semibold);
+  font-size: var(--text-sm);
   cursor: pointer;
-  transition: all 0.3s var(--bounce-timing);
+  transition: all var(--transition-base);
 }
 
 .language-btn:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--primary-orange);
-  transform: translateY(-2px);
-  box-shadow: 0 0 15px rgba(255, 149, 0, 0.4);
+  background: var(--surface-hover);
+  border-color: var(--border-accent);
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.15);
+}
+
+.language-btn:focus-visible {
+  outline: 2px solid var(--star-primary);
+  outline-offset: 2px;
+  box-shadow: var(--focus-ring);
 }
 
 .language-btn .lang-label {
-  font-family: var(--font-heading);
-  letter-spacing: 1.5px;
-  font-size: 1rem;
-  font-weight: 700;
+  font-family: var(--font-sans);
+  letter-spacing: 0.05em;
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
 }
 
 .language-btn .arrow {
-  font-size: 0.75rem;
-  transition: transform 0.3s ease;
+  font-size: 0.625rem;
+  transition: transform var(--transition-base);
+  color: var(--text-secondary);
 }
 
 .language-btn .arrow.open {
@@ -48,21 +51,21 @@
 /* Dropdown */
 .language-dropdown {
   position: absolute;
-  top: calc(100% + 0.5rem);
+  top: calc(100% + var(--space-2));
   right: 0;
-  min-width: 160px;
-  background: var(--bg-card);
-  border: 2px solid rgba(255, 149, 0, 0.3);
+  min-width: 120px;
+  background: var(--surface);
+  border: 1px solid var(--border-medium);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  padding: 0.5rem;
-  animation: slideDown 0.3s var(--bounce-timing);
+  box-shadow: var(--shadow-lg), 0 0 30px rgba(0, 0, 0, 0.5);
+  padding: var(--space-2);
+  animation: slideDown var(--transition-base);
 }
 
 @keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
   to {
     opacity: 1;
@@ -73,57 +76,52 @@
 .language-option {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  justify-content: space-between;
+  gap: var(--space-2);
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: var(--space-2) var(--space-3);
   background: transparent;
   border: none;
-  border-radius: var(--radius-sm);
-  color: var(--white);
-  font-size: 1rem;
-  font-weight: 600;
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition-fast);
   text-align: left;
 }
 
 .language-option:hover {
-  background: var(--bg-card-hover);
-  transform: translateX(5px);
+  background: var(--surface-hover);
+  color: var(--star-primary);
 }
 
 .language-option.active {
   background: var(--gradient-primary);
-  color: var(--white);
+  color: var(--text-primary);
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
 }
 
 .language-option .lang-label {
   flex: 1;
-  font-family: var(--font-heading);
-  letter-spacing: 1.5px;
-  font-size: 1rem;
-  font-weight: 700;
+  font-family: var(--font-sans);
+  letter-spacing: 0.05em;
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
 }
 
 .language-option .checkmark {
-  font-size: 1.25rem;
-  color: var(--white);
-  font-weight: 900;
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
 }
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .language-btn {
-    padding: 0.5rem 0.75rem;
-  }
-
-  .language-btn .lang-label {
-    font-size: 0.875rem;
+    padding: var(--space-2) var(--space-3);
   }
 
   .language-dropdown {
-    right: auto;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 0;
   }
 }

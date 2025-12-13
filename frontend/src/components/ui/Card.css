@@ -1,0 +1,59 @@
+/* STAR Card Component - Dark Theme */
+.star-card {
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
+  transition: all var(--transition-base);
+}
+
+.star-card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg), 0 0 30px rgba(99, 102, 241, 0.15);
+  border-color: var(--border-accent);
+}
+
+/* Variants */
+.star-card-default {
+  background: var(--surface);
+}
+
+.star-card-gradient {
+  background: linear-gradient(135deg,
+    rgba(99, 102, 241, 0.08) 0%,
+    rgba(168, 85, 247, 0.08) 100%);
+  border-color: rgba(99, 102, 241, 0.2);
+}
+
+.star-card-featured {
+  background: var(--gradient-primary);
+  color: var(--text-primary);
+  border: none;
+  box-shadow: var(--shadow-colored), var(--shadow-glow-purple);
+}
+
+.star-card-featured * {
+  color: var(--text-primary);
+}
+
+.star-card-featured:hover {
+  box-shadow: var(--shadow-xl), var(--shadow-glow-purple);
+}
+
+.star-card-outlined {
+  background: transparent;
+  border: 2px solid var(--border-medium);
+}
+
+.star-card-outlined:hover {
+  border-color: var(--star-primary);
+  background: rgba(99, 102, 241, 0.05);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .star-card {
+    padding: var(--space-4);
+  }
+}
