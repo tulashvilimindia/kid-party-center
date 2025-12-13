@@ -195,4 +195,16 @@ export const getHomepage = async () => {
   }
 };
 
+// About Page API
+export const getAbout = async () => {
+  try {
+    const locale = getLocale();
+    const response = await api.get(`/about?locale=${locale}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching about page:', error);
+    throw error;
+  }
+};
+
 export default api;
