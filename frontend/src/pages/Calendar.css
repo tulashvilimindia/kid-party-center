@@ -1,292 +1,590 @@
 /* ===================================
-   CALENDAR PAGE STYLES
+   STAR CALENDAR PAGE - Fancy Professional Playful Theme ✨📅
    =================================== */
 
-/* Calendar Filter */
+/* Loading State */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(148, 163, 184, 0.2);
+  border-top-color: var(--star-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Calendar Page Container */
+.calendar-page {
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+/* Calendar Filter - Sticky Navigation */
 .calendar-filter {
-  background: var(--bg-card);
-  padding: var(--spacing-xl) 0;
-  border-bottom: 3px solid transparent;
-  border-image: var(--gradient-rainbow) 1;
+  background: var(--surface);
+  padding: var(--space-6) 0;
+  border-bottom: 2px solid var(--border-light);
   position: sticky;
-  top: 80px;
-  z-index: 10;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+  top: 70px;
+  z-index: 100;
+  box-shadow: var(--shadow-lg), 0 0 30px rgba(99, 102, 241, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.filter-buttons {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: var(--space-3) var(--space-8);
+  border: 3px solid var(--border-light);
+  border-radius: var(--radius-2xl);
+  background: var(--bg);
+  color: var(--text-secondary);
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.filter-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.filter-btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.filter-btn:hover {
+  border-color: var(--star-primary);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+}
+
+.filter-btn.active {
+  background: var(--gradient-primary);
+  border-color: var(--star-primary);
+  color: var(--text-primary);
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
+  animation: pulse-glow-soft 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow-soft {
+  0%, 100% {
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(99, 102, 241, 0.7);
+  }
 }
 
 /* Calendar Section */
 .calendar-section {
-  padding: var(--spacing-3xl) 0;
-  background: var(--bg-dark);
+  padding: var(--space-12) 0;
+  background: var(--bg);
   min-height: 500px;
 }
 
 .calendar-grid {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-2xl);
+  gap: var(--space-8);
 }
 
-/* Date Group */
+/* Date Group - Fancy Card */
 .date-group {
-  background: var(--bg-card);
-  border-radius: var(--radius-xl);
+  background: var(--surface);
+  border-radius: var(--radius-2xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  border: 3px solid rgba(255, 149, 0, 0.2);
+  box-shadow: var(--shadow-lg), 0 0 30px rgba(99, 102, 241, 0.08);
+  border: 2px solid var(--border-light);
+  transition: all var(--transition-base);
+  position: relative;
 }
 
+.date-group::before {
+  content: '✨';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 2rem;
+  opacity: 0.1;
+  animation: twinkle-slow 3s ease-in-out infinite;
+}
+
+@keyframes twinkle-slow {
+  0%, 100% {
+    opacity: 0.1;
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.2) rotate(180deg);
+  }
+}
+
+.date-group:hover {
+  border-color: rgba(99, 102, 241, 0.3);
+  box-shadow: var(--shadow-xl), 0 0 40px rgba(99, 102, 241, 0.15);
+  transform: translateY(-4px);
+}
+
+/* Date Header - Gradient Professional */
 .date-header {
-  background: var(--gradient-secondary);
-  color: var(--white);
-  padding: var(--spacing-lg) var(--spacing-xl);
+  background: var(--gradient-primary);
+  padding: var(--space-6) var(--space-8);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.date-header::before {
+  content: '📅';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  font-size: 5rem;
+  opacity: 0.1;
+  animation: float-calendar 4s ease-in-out infinite;
+}
+
+@keyframes float-calendar {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(10px, 10px) rotate(10deg);
+  }
 }
 
 .date-header h3 {
-  font-size: 1.75rem;
-  font-weight: 900;
+  font-size: var(--text-2xl);
+  font-weight: var(--font-extrabold);
   margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+  color: var(--text-primary);
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 1;
 }
 
 .day-of-week {
-  font-size: 1.125rem;
-  font-weight: 700;
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 1px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-xl);
+  position: relative;
+  z-index: 1;
 }
 
 /* Slots List */
 .slots-list {
-  padding: var(--spacing-lg);
+  padding: var(--space-6);
   display: grid;
-  gap: var(--spacing-md);
+  gap: var(--space-4);
 }
 
+/* Slot Card - Interactive and Playful */
 .slot-card {
   display: grid;
   grid-template-columns: auto 1fr auto;
-  gap: var(--spacing-lg);
+  gap: var(--space-6);
   align-items: center;
-  padding: var(--spacing-lg);
-  border: 3px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius-lg);
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  background: rgba(0, 0, 0, 0.2);
+  padding: var(--space-6);
+  border: 3px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  transition: all var(--transition-base);
+  background: linear-gradient(135deg, rgba(30, 37, 51, 0.5) 0%, rgba(26, 31, 41, 0.5) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.slot-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+  animation: float-sparkle 8s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .slot-card:hover {
+  transform: translateY(-4px) scale(1.01);
   box-shadow: var(--shadow-md);
-  transform: translateY(-5px) scale(1.02);
 }
 
+/* Available Slot - Green Glow */
 .slot-card.available {
-  border-color: var(--green);
-  background: rgba(48, 209, 88, 0.1);
-  box-shadow: 0 0 20px rgba(48, 209, 88, 0.2);
+  border-color: #10b981;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
 }
 
 .slot-card.available:hover {
-  box-shadow: 0 0 30px rgba(48, 209, 88, 0.4);
+  box-shadow: 0 0 40px rgba(16, 185, 129, 0.4);
+  border-color: #34d399;
 }
 
+.slot-card.available::after {
+  content: '✨';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  opacity: 0;
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.3) rotate(180deg);
+  }
+}
+
+/* Booked Slot - Muted */
 .slot-card.booked {
-  border-color: rgba(158, 158, 158, 0.3);
+  border-color: rgba(148, 163, 184, 0.2);
   background: rgba(0, 0, 0, 0.3);
   opacity: 0.6;
 }
 
-.slot-card.pending {
-  border-color: var(--yellow);
-  background: rgba(255, 214, 10, 0.1);
-  box-shadow: 0 0 20px rgba(255, 214, 10, 0.2);
+.slot-card.booked:hover {
+  transform: none;
+  box-shadow: none;
 }
 
+/* Limited Slot - Orange/Yellow Pulse */
 .slot-card.limited {
-  border-color: var(--yellow);
-  background: rgba(255, 149, 0, 0.1);
-  box-shadow: 0 0 20px rgba(255, 149, 0, 0.2);
+  border-color: #f59e0b;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.15) 100%);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+  animation: pulse-limited 2s ease-in-out infinite;
+}
+
+@keyframes pulse-limited {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(245, 158, 11, 0.5);
+  }
 }
 
 .slot-card.limited:hover {
-  box-shadow: 0 0 30px rgba(255, 149, 0, 0.4);
+  box-shadow: 0 0 40px rgba(245, 158, 11, 0.6);
 }
 
-/* Slot Time */
+/* Pending Slot */
+.slot-card.pending {
+  border-color: #fbbf24;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
+}
+
+/* Slot Time - Prominent Display */
 .slot-time {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: var(--space-3);
   min-width: 200px;
 }
 
 .time-icon {
-  font-size: 2rem;
-  filter: drop-shadow(0 0 5px rgba(255, 149, 0, 0.5));
+  font-size: 2.5rem;
+  filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.5));
+  animation: bounce-gentle 2s ease-in-out infinite;
+}
+
+@keyframes bounce-gentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.slot-time div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
 }
 
 .slot-time strong {
-  color: var(--white);
-  font-size: 1.25rem;
-  font-weight: 800;
+  color: var(--text-primary);
+  font-size: var(--text-xl);
+  font-weight: var(--font-extrabold);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
 .time-to {
-  color: var(--light-gray);
-  font-size: 1rem;
-  margin: 0 var(--spacing-xs);
-  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  text-transform: lowercase;
 }
 
 /* Slot Info */
 .slot-info {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xs);
+  gap: var(--space-2);
 }
 
 .slot-package {
   display: flex;
-  gap: var(--spacing-xs);
-  font-size: 0.9375rem;
+  gap: var(--space-2);
+  font-size: var(--text-base);
+  align-items: center;
 }
 
 .info-label {
-  color: var(--text-muted);
-  font-weight: 600;
+  color: var(--text-secondary);
+  font-weight: var(--font-semibold);
 }
 
 .slot-package span:last-child {
-  color: var(--primary-orange);
-  font-weight: 600;
+  color: var(--star-primary);
+  font-weight: var(--font-bold);
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* Slot Status */
+/* Slot Status - Badges and Buttons */
 .slot-status {
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: var(--space-3);
+  flex-wrap: wrap;
 }
 
 .status-badge {
-  padding: var(--spacing-xs) var(--spacing-md);
-  border-radius: var(--border-radius-full);
-  font-size: 0.875rem;
-  font-weight: 700;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-2xl);
+  font-size: var(--text-sm);
+  font-weight: var(--font-extrabold);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 .status-badge.available {
-  background: rgba(76, 175, 80, 0.15);
-  color: #2e7d32;
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+  border: 2px solid #10b981;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
 }
 
 .status-badge.booked {
-  background: rgba(158, 158, 158, 0.15);
-  color: #616161;
+  background: rgba(148, 163, 184, 0.2);
+  color: #94a3b8;
+  border: 2px solid rgba(148, 163, 184, 0.5);
 }
 
 .status-badge.pending {
-  background: rgba(255, 152, 0, 0.15);
-  color: #e65100;
+  background: rgba(251, 191, 36, 0.2);
+  color: #fbbf24;
+  border: 2px solid #fbbf24;
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
 }
 
 .status-badge.limited {
-  background: rgba(255, 149, 0, 0.2);
-  color: var(--primary-orange);
-  font-weight: 900;
-  animation: pulse 2s infinite;
+  background: rgba(245, 158, 11, 0.2);
+  color: #f59e0b;
+  border: 2px solid #f59e0b;
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+  animation: pulse-badge 2s infinite;
 }
 
-/* No Slots */
+@keyframes pulse-badge {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* No Slots - Empty State */
 .no-slots {
   text-align: center;
-  padding: var(--spacing-3xl) 0;
+  padding: var(--space-20) 0;
 }
 
 .no-slots-icon {
-  font-size: 5rem;
-  margin-bottom: var(--spacing-lg);
-  opacity: 0.3;
+  font-size: 6rem;
+  margin-bottom: var(--space-6);
+  opacity: 0.2;
+  filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.3));
+  animation: float-slow 4s ease-in-out infinite;
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
 }
 
 .no-slots h3 {
-  font-size: 1.75rem;
-  color: var(--white);
-  margin-bottom: var(--spacing-md);
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-size: var(--text-3xl);
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
+  font-weight: var(--font-extrabold);
+  letter-spacing: 0.5px;
 }
 
 .no-slots p {
-  color: var(--light-gray);
-  font-size: 1.125rem;
-  margin-bottom: var(--spacing-xl);
+  color: var(--text-secondary);
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-8);
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
+  line-height: var(--leading-relaxed);
 }
 
-/* Calendar Info Section */
+/* Calendar Info Section - CTA Cards */
 .calendar-info {
-  padding: var(--spacing-3xl) 0;
-  background: var(--bg-darker);
+  padding: var(--space-12) 0;
+  background: linear-gradient(180deg, var(--bg) 0%, rgba(30, 37, 51, 0.5) 100%);
 }
 
 .info-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--spacing-xl);
+  gap: var(--space-6);
 }
 
 .info-card {
   text-align: center;
-  padding: var(--spacing-xl);
-  border: 3px solid rgba(255, 149, 0, 0.2);
-  border-radius: var(--radius-xl);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  background: var(--bg-card);
+  padding: var(--space-8);
+  border: 3px solid var(--border-light);
+  border-radius: var(--radius-2xl);
+  transition: all var(--transition-base);
+  background: var(--surface);
+  position: relative;
+  overflow: hidden;
+}
+
+.info-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+  animation: rotate-slow 15s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotate-slow {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .info-card:hover {
-  border-color: var(--primary-orange);
-  box-shadow: var(--shadow-glow-orange);
-  transform: translateY(-10px) scale(1.02);
+  border-color: var(--star-primary);
+  box-shadow: var(--shadow-xl), 0 0 40px rgba(99, 102, 241, 0.3);
+  transform: translateY(-8px) scale(1.02);
 }
 
 .info-icon {
   font-size: 4rem;
-  margin-bottom: var(--spacing-md);
-  filter: drop-shadow(0 0 10px rgba(255, 149, 0, 0.5));
+  margin-bottom: var(--space-4);
+  filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.5));
+  display: inline-block;
+  animation: bounce-icon 3s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes bounce-icon {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(-5deg);
+  }
+  75% {
+    transform: translateY(-10px) rotate(5deg);
+  }
 }
 
 .info-card h4 {
-  font-size: 1.5rem;
-  color: var(--white);
-  margin-bottom: var(--spacing-sm);
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-size: var(--text-xl);
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+  font-weight: var(--font-extrabold);
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 1;
 }
 
 .info-card p {
-  color: var(--light-gray);
-  margin-bottom: var(--spacing-lg);
-  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-6);
+  line-height: var(--leading-relaxed);
+  position: relative;
+  z-index: 1;
 }
 
 /* Responsive Design */
 @media (max-width: 992px) {
   .slot-card {
     grid-template-columns: 1fr;
-    gap: var(--spacing-md);
+    gap: var(--space-4);
   }
 
   .slot-time {
@@ -294,9 +592,9 @@
   }
 
   .slot-status {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--spacing-sm);
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-3);
   }
 
   .info-grid {
@@ -307,24 +605,39 @@
 @media (max-width: 768px) {
   .calendar-filter {
     position: static;
+    top: 0;
+  }
+
+  .filter-buttons {
+    gap: var(--space-3);
+  }
+
+  .filter-btn {
+    padding: var(--space-2) var(--space-6);
+    font-size: var(--text-sm);
   }
 
   .date-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--spacing-xs);
+    gap: var(--space-2);
+    padding: var(--space-5) var(--space-6);
   }
 
   .date-header h3 {
-    font-size: 1.25rem;
+    font-size: var(--text-xl);
+  }
+
+  .day-of-week {
+    font-size: var(--text-sm);
   }
 
   .slots-list {
-    padding: var(--spacing-md);
+    padding: var(--space-4);
   }
 
   .slot-card {
-    padding: var(--spacing-md);
+    padding: var(--space-4);
   }
 
   .slot-time {
@@ -332,7 +645,11 @@
   }
 
   .slot-time strong {
-    font-size: 1rem;
+    font-size: var(--text-lg);
+  }
+
+  .time-icon {
+    font-size: 2rem;
   }
 
   .no-slots-icon {
@@ -340,11 +657,11 @@
   }
 
   .no-slots h3 {
-    font-size: 1.5rem;
+    font-size: var(--text-2xl);
   }
 
   .no-slots p {
-    font-size: 1rem;
+    font-size: var(--text-base);
   }
 }
 
@@ -352,18 +669,57 @@
   .slot-time {
     flex-direction: column;
     align-items: flex-start;
+    min-width: auto;
+  }
+
+  .slot-time div {
+    width: 100%;
   }
 
   .time-icon {
-    font-size: 1.25rem;
+    font-size: 1.75rem;
   }
 
   .status-badge {
-    font-size: 0.75rem;
-    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-3);
+  }
+
+  .slot-status {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .info-card {
-    padding: var(--spacing-lg);
+    padding: var(--space-6);
+  }
+
+  .info-icon {
+    font-size: 3rem;
+  }
+}
+
+/* Accessibility - Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .filter-btn::before,
+  .date-group::before,
+  .date-header::before,
+  .slot-card::before,
+  .slot-card.available::after,
+  .time-icon,
+  .no-slots-icon,
+  .info-card::before,
+  .info-icon,
+  .spinner,
+  .slot-card.limited,
+  .status-badge.limited {
+    animation: none;
+  }
+
+  .slot-card:hover,
+  .date-group:hover,
+  .info-card:hover {
+    transform: none;
   }
 }

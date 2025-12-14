@@ -207,4 +207,16 @@ export const getAbout = async () => {
   }
 };
 
+// FAQ Page API
+export const getFaq = async () => {
+  try {
+    const locale = getLocale();
+    const response = await api.get(`/faq?locale=${locale}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching FAQ page:', error);
+    throw error;
+  }
+};
+
 export default api;

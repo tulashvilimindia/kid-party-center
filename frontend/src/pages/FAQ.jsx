@@ -1,15 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { getFaq } from '../services/api';
 import './FAQ.css';
 
 const FAQ = () => {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [faqData, setFaqData] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { lang } = useParams();
   const { i18n } = useTranslation();
   const currentLang = lang || i18n.language || 'en';
 
-  const faqs = [
+  useEffect(() => {
+    const fetchFaqData = async () => {
+      try {
+        const response = await getFaq();
+        setFaqData(response.data);
+      } catch (error) {
+        console.error('Error fetching FAQ data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFaqData();
+  }, [i18n.language]);
+
+  // Get FAQ texts with fallback
+  const texts = faqData?.faquestions || {};
+
+  // Build FAQs array from Strapi data
+  const faqs = [];
+  for (let i = 1; i <= 12; i++) {
+    const question = texts[`faq_${i}_q`];
+    const answer = texts[`faq_${i}_a`];
+
+    if (question && answer) {
+      faqs.push({ question, answer });
+    }
+  }
+
+  // Fallback FAQs if Strapi data is not available
+  const fallbackFaqs = [
     {
       question: 'How far in advance should I book a party?',
       answer: 'We recommend booking at least 2-3 weeks in advance, especially for weekends. However, we can sometimes accommodate last-minute bookings depending on availability.'
@@ -60,18 +93,29 @@ const FAQ = () => {
     }
   ];
 
+  // Use Strapi FAQs if available, otherwise use fallback
+  const displayFaqs = faqs.length > 0 ? faqs : fallbackFaqs;
+
   const toggleFAQ = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
+
+  if (loading) {
+    return (
+      <div className="loading">
+        <div className="spinner"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="faq-page">
       {/* Page Header */}
       <section className="page-header">
         <div className="container">
-          <h1 className="text-gradient">Frequently Asked Questions</h1>
+          <h1 className="text-gradient">{texts.page_title || 'Frequently Asked Questions'}</h1>
           <p className="page-subtitle">
-            Find answers to common questions about our party services
+            {texts.page_subtitle || 'Find answers to common questions about our party services'}
           </p>
         </div>
       </section>
@@ -81,7 +125,7 @@ const FAQ = () => {
         <div className="container">
           <div className="faq-container">
             <div className="faq-list">
-              {faqs.map((faq, index) => (
+              {displayFaqs.map((faq, index) => (
                 <div
                   key={index}
                   className={`faq-item ${activeIndex === index ? 'active' : ''}`}
@@ -102,20 +146,20 @@ const FAQ = () => {
 
             <div className="faq-sidebar">
               <div className="help-card">
-                <h3>Still Have Questions?</h3>
-                <p>Can't find the answer you're looking for? Our team is here to help!</p>
+                <h3>{texts.sidebar_help_title || 'Still Have Questions?'}</h3>
+                <p>{texts.sidebar_help_text || 'Can\'t find the answer you\'re looking for? Our team is here to help!'}</p>
                 <Link to={`/${currentLang}/contact`} className="btn btn-primary btn-block">
-                  Contact Us
+                  {texts.sidebar_help_btn || 'Contact Us'}
                 </Link>
               </div>
 
               <div className="help-card">
-                <h3>Quick Links</h3>
+                <h3>{texts.sidebar_links_title || 'Quick Links'}</h3>
                 <div className="quick-links">
-                  <Link to={`/${currentLang}/packages`}>View Packages</Link>
-                  <Link to={`/${currentLang}/calculator`}>Price Calculator</Link>
-                  <Link to={`/${currentLang}/calendar`}>Check Availability</Link>
-                  <Link to={`/${currentLang}/about`}>About Us</Link>
+                  <Link to={`/${currentLang}/packages`}>{texts.sidebar_link_1 || 'View Packages'}</Link>
+                  <Link to={`/${currentLang}/calculator`}>{texts.sidebar_link_2 || 'Price Calculator'}</Link>
+                  <Link to={`/${currentLang}/calendar`}>{texts.sidebar_link_3 || 'Check Availability'}</Link>
+                  <Link to={`/${currentLang}/about`}>{texts.sidebar_link_4 || 'About Us'}</Link>
                 </div>
               </div>
             </div>
