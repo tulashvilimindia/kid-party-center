@@ -219,4 +219,16 @@ export const getFaq = async () => {
   }
 };
 
+// Terms Page API
+export const getTerm = async () => {
+  try {
+    const locale = getLocale();
+    const response = await api.get(`/term?locale=${locale}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching terms page:', error);
+    throw error;
+  }
+};
+
 export default api;
