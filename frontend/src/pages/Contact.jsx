@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { getContact } from '../services/api';
 import './Contact.css';
 
 const Contact = () => {
-  const { t, i18n } = useTranslation('contact');
+  const { i18n } = useTranslation();
   const { lang } = useParams();
   const currentLang = lang || i18n.language || 'en';
+
+  const [contactData, setContactData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -19,6 +23,24 @@ const Contact = () => {
   });
 
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    const fetchContactData = async () => {
+      try {
+        const response = await getContact();
+        setContactData(response.data);
+      } catch (error) {
+        console.error('Error fetching contact data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchContactData();
+  }, [i18n.language]);
+
+  // Get contact texts with fallback
+  const texts = contactData?.contact || {};
 
   const handleChange = (e) => {
     setFormData({
@@ -48,14 +70,22 @@ const Contact = () => {
     }, 3000);
   };
 
+  if (loading) {
+    return (
+      <div className="loading">
+        <div className="spinner"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="contact-page">
       {/* Page Header */}
       <section className="page-header">
         <div className="container">
-          <h1 className="text-gradient">{t('title')}</h1>
+          <h1 className="text-gradient">{texts.page_title || 'Contact Us'}</h1>
           <p className="page-subtitle">
-            {t('subtitle')}
+            {texts.page_subtitle || 'Get in Touch with BeqaParty'}
           </p>
         </div>
       </section>
@@ -66,22 +96,22 @@ const Contact = () => {
           <div className="contact-grid">
             {/* Contact Form */}
             <div className="contact-form-wrapper">
-              <h2>Send Us a Message</h2>
+              <h2>{texts.form_title || 'Send Us a Message'}</h2>
               <p className="form-description">
-                Fill out the form below and we'll get back to you as soon as possible.
+                {texts.form_description || 'Fill out the form below and we\'ll get back to you as soon as possible.'}
               </p>
 
               {submitted && (
                 <div className="success-message">
                   <span className="success-icon">✓</span>
-                  <p>{t('form.success')}</p>
+                  <p>{texts.form_success || 'Thank you! Your message has been sent. We\'ll get back to you soon.'}</p>
                 </div>
               )}
 
               <form onSubmit={handleSubmit} className="contact-form">
                 <div className="form-row">
                   <div className="form-group">
-                    <label htmlFor="name">{t('form.name')} *</label>
+                    <label htmlFor="name">{texts.form_name || 'Name'} *</label>
                     <input
                       type="text"
                       id="name"
@@ -89,12 +119,12 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      placeholder={t('form.namePlaceholder')}
+                      placeholder={texts.form_name_placeholder || 'Enter your name'}
                     />
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="phone">{t('form.phone')} *</label>
+                    <label htmlFor="phone">{texts.form_phone || 'Phone'} *</label>
                     <input
                       type="tel"
                       id="phone"
@@ -102,13 +132,13 @@ const Contact = () => {
                       value={formData.phone}
                       onChange={handleChange}
                       required
-                      placeholder={t('form.phonePlaceholder')}
+                      placeholder={texts.form_phone_placeholder || 'Enter your phone number'}
                     />
                   </div>
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="email">{t('form.email')} *</label>
+                  <label htmlFor="email">{texts.form_email || 'Email'} *</label>
                   <input
                     type="email"
                     id="email"
@@ -116,13 +146,13 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    placeholder={t('form.emailPlaceholder')}
+                    placeholder={texts.form_email_placeholder || 'Enter your email address'}
                   />
                 </div>
 
                 <div className="form-row">
                   <div className="form-group">
-                    <label htmlFor="date">{t('form.date')}</label>
+                    <label htmlFor="date">{texts.form_date || 'Preferred Date'}</label>
                     <input
                       type="date"
                       id="date"
@@ -133,7 +163,7 @@ const Contact = () => {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="guests">{t('form.guests')}</label>
+                    <label htmlFor="guests">{texts.form_guests || 'Number of Guests'}</label>
                     <input
                       type="number"
                       id="guests"
@@ -141,29 +171,29 @@ const Contact = () => {
                       value={formData.guests}
                       onChange={handleChange}
                       min="1"
-                      placeholder={t('form.guestsPlaceholder')}
+                      placeholder={texts.form_guests_placeholder || 'e.g. 15'}
                     />
                   </div>
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="packageInterest">{t('form.package')}</label>
+                  <label htmlFor="packageInterest">{texts.form_package || 'Package Interest'}</label>
                   <select
                     id="packageInterest"
                     name="packageInterest"
                     value={formData.packageInterest}
                     onChange={handleChange}
                   >
-                    <option value="">{t('form.packagePlaceholder')}</option>
-                    <option value="basic">Basic Party</option>
-                    <option value="deluxe">Deluxe Party</option>
-                    <option value="premium">Premium Party</option>
-                    <option value="custom">Custom Package</option>
+                    <option value="">{texts.form_package_placeholder || 'Select a package'}</option>
+                    <option value="basic">{texts.package_basic || 'Basic Party'}</option>
+                    <option value="deluxe">{texts.package_deluxe || 'Deluxe Party'}</option>
+                    <option value="premium">{texts.package_premium || 'Premium Party'}</option>
+                    <option value="custom">{texts.package_custom || 'Custom Package'}</option>
                   </select>
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="message">{t('form.message')} *</label>
+                  <label htmlFor="message">{texts.form_message || 'Message'} *</label>
                   <textarea
                     id="message"
                     name="message"
@@ -171,12 +201,12 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     rows="5"
-                    placeholder={t('form.messagePlaceholder')}
+                    placeholder={texts.form_message_placeholder || 'Tell us about your party...'}
                   ></textarea>
                 </div>
 
                 <button type="submit" className="btn btn-primary btn-lg btn-block">
-                  {t('form.submit')}
+                  {texts.form_submit || 'Send Message'}
                 </button>
               </form>
             </div>
@@ -184,79 +214,87 @@ const Contact = () => {
             {/* Contact Info */}
             <div className="contact-info-wrapper">
               <div className="info-card">
-                <h3>{t('info.title')}</h3>
+                <h3>{texts.info_card_title || 'Contact Information'}</h3>
                 <div className="contact-details">
                   <div className="detail-item">
                     <div className="detail-icon">📍</div>
                     <div>
-                      <strong>{t('info.location')}</strong>
-                      <p>Batumi, Georgia</p>
+                      <strong>{texts.info_location_label || 'Location'}</strong>
+                      <p>{texts.info_location_value || 'Batumi, Georgia'}</p>
                     </div>
                   </div>
                   <div className="detail-item">
                     <div className="detail-icon">📞</div>
                     <div>
-                      <strong>{t('info.phone')}</strong>
-                      <p><a href="tel:+995577123456">+995 577 123 456</a></p>
+                      <strong>{texts.info_phone_label || 'Phone'}</strong>
+                      <p>
+                        <a href={`tel:${texts.info_phone_value?.replace(/\s/g, '') || '+995577123456'}`}>
+                          {texts.info_phone_value || '+995 577 123 456'}
+                        </a>
+                      </p>
                     </div>
                   </div>
                   <div className="detail-item">
                     <div className="detail-icon">✉️</div>
                     <div>
-                      <strong>{t('info.email')}</strong>
-                      <p><a href="mailto:info@beqaparty.ge">info@beqaparty.ge</a></p>
+                      <strong>{texts.info_email_label || 'Email'}</strong>
+                      <p>
+                        <a href={`mailto:${texts.info_email_value || 'info@beqaparty.ge'}`}>
+                          {texts.info_email_value || 'info@beqaparty.ge'}
+                        </a>
+                      </p>
                     </div>
                   </div>
                   <div className="detail-item">
                     <div className="detail-icon">🕐</div>
                     <div>
-                      <strong>{t('info.hours')}</strong>
-                      <p>{t('info.hoursDetails')}</p>
+                      <strong>{texts.info_hours_label || 'Hours'}</strong>
+                      <p>{texts.info_hours_value || 'Mon–Sun: 10:00–20:00'}</p>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div className="info-card">
-                <h3>Quick Links</h3>
+                <h3>{texts.quick_links_title || 'Quick Links'}</h3>
                 <div className="quick-links">
                   <Link to={`/${currentLang}/packages`} className="quick-link">
-                    <span>📦</span>
-                    <span>View Packages</span>
+                    <span>{texts.quick_link_1_icon || '📦'}</span>
+                    <span>{texts.quick_link_1_label || 'View Packages'}</span>
                   </Link>
                   <Link to={`/${currentLang}/calculator`} className="quick-link">
-                    <span>🧮</span>
-                    <span>Price Calculator</span>
+                    <span>{texts.quick_link_2_icon || '🧮'}</span>
+                    <span>{texts.quick_link_2_label || 'Price Calculator'}</span>
                   </Link>
                   <Link to={`/${currentLang}/calendar`} className="quick-link">
-                    <span>📅</span>
-                    <span>Check Availability</span>
+                    <span>{texts.quick_link_3_icon || '📅'}</span>
+                    <span>{texts.quick_link_3_label || 'Check Availability'}</span>
                   </Link>
                   <Link to={`/${currentLang}/faq`} className="quick-link">
-                    <span>❓</span>
-                    <span>FAQ</span>
+                    <span>{texts.quick_link_4_icon || '❓'}</span>
+                    <span>{texts.quick_link_4_label || 'FAQ'}</span>
                   </Link>
                 </div>
               </div>
 
               <div className="info-card social-card">
-                <h3>Follow Us</h3>
+                <h3>{texts.social_title || 'Follow Us'}</h3>
                 <div className="social-links">
                   <a
-                    href="https://facebook.com/beqaparty"
+                    href={texts.social_facebook_url || 'https://facebook.com/beqaparty'}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="social-link facebook"
                   >
-                    Facebook
+                    {texts.social_facebook_label || 'Facebook'}
                   </a>
                   <a
-                    href="https://instagram.com/beqaparty"
+                    href={texts.social_instagram_url || 'https://instagram.com/beqaparty'}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="social-link instagram"
                   >
-                    Instagram
+                    {texts.social_instagram_label || 'Instagram'}
                   </a>
                 </div>
               </div>

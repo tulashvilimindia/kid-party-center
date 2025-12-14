@@ -231,4 +231,16 @@ export const getTerm = async () => {
   }
 };
 
+// Contact Page API
+export const getContact = async () => {
+  try {
+    const locale = getLocale();
+    const response = await api.get(`/contact?locale=${locale}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching contact page:', error);
+    throw error;
+  }
+};
+
 export default api;
