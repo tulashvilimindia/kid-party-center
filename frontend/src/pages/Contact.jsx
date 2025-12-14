@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getContact } from '../services/api';
+import { getContact, getPackages } from '../services/api';
 import './Contact.css';
 
 const Contact = () => {
@@ -10,6 +10,7 @@ const Contact = () => {
   const currentLang = lang || i18n.language || 'en';
 
   const [contactData, setContactData] = useState(null);
+  const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const [formData, setFormData] = useState({
@@ -25,18 +26,25 @@ const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    const fetchContactData = async () => {
+    const fetchData = async () => {
       try {
-        const response = await getContact();
-        setContactData(response.data);
+        const [contactResponse, packagesResponse] = await Promise.all([
+          getContact(),
+          getPackages()
+        ]);
+        setContactData(contactResponse.data);
+
+        // Strapi returns { data: [...] }, extract the array
+        const packagesArray = packagesResponse.data || [];
+        setPackages(packagesArray);
       } catch (error) {
-        console.error('Error fetching contact data:', error);
+        console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchContactData();
+    fetchData();
   }, [i18n.language]);
 
   // Get contact texts with fallback
@@ -185,10 +193,15 @@ const Contact = () => {
                     onChange={handleChange}
                   >
                     <option value="">{texts.form_package_placeholder || 'Select a package'}</option>
-                    <option value="basic">{texts.package_basic || 'Basic Party'}</option>
-                    <option value="deluxe">{texts.package_deluxe || 'Deluxe Party'}</option>
-                    <option value="premium">{texts.package_premium || 'Premium Party'}</option>
-                    <option value="custom">{texts.package_custom || 'Custom Package'}</option>
+                    {packages && packages.length > 0 ? (
+                      packages.map((pkg) => (
+                        <option key={pkg.id} value={pkg.id}>
+                          {pkg.name}
+                        </option>
+                      ))
+                    ) : (
+                      <option value="" disabled>Loading packages...</option>
+                    )}
                   </select>
                 </div>
 
